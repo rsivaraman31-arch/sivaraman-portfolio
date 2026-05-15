@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sivaraman R — Automotive Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1D3A;
+    --navy-mid: #122548;
+    --navy-light: #1B3A6B;
+    --accent: #E8451A;
+    --accent2: #F5A623;
+    --white: #F4F1EC;
+    --cream: #EDE8DF;
+    --grey: #8A8A8A;
+    --grid: rgba(255,255,255,0.04);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: exclusion;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(232,69,26,0.5);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.18s ease, width 0.3s, height 0.3s, border-color 0.3s;
+  }
+
+  /* Grid overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 3rem;
+    background: linear-gradient(to bottom, rgba(11,29,58,0.97), transparent);
+    backdrop-filter: blur(4px);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.12em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--grey);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* F1 tire track lines */
+  .track-lines {
+    position: absolute;
+    top: 0; right: 0;
+    width: 55%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .track-lines::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 120%;
+    height: 120%;
+    background: repeating-linear-gradient(
+      -12deg,
+      transparent,
+      transparent 28px,
+      rgba(232,69,26,0.06) 28px,
+      rgba(232,69,26,0.06) 30px
+    );
+  }
+  .track-accent {
+    position: absolute;
+    top: 30%;
+    right: 8%;
+    width: 3px;
+    height: 40%;
+    background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    opacity: 0.5;
+  }
+  .track-accent2 {
+    position: absolute;
+    top: 20%;
+    right: 15%;
+    width: 1px;
+    height: 55%;
+    background: linear-gradient(to bottom, transparent, rgba(245,166,35,0.4), transparent);
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 11vw, 10rem);
+    line-height: 0.9;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+  .hero-name .outline {
+    -webkit-text-stroke: 1px rgba(244,241,236,0.3);
+    color: transparent;
+    display: block;
+  }
+
+  .hero-sub {
+    margin-top: 1.8rem;
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+  .tag {
+    border: 1px solid rgba(255,255,255,0.18);
+    padding: 0.35rem 0.9rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey);
+    border-radius: 2px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+  .tag.hot { border-color: var(--accent); color: var(--accent); }
+
+  .hero-cta {
+    margin-top: 2.8rem;
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.8rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.25s;
+    cursor: none;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--white);
+    border: 1px solid var(--accent);
+  }
+  .btn-primary:hover { background: transparent; color: var(--accent); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .btn-outline:hover { border-color: var(--white); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem; right: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.4s forwards;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+  .scroll-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--grey);
+    writing-mode: vertical-rl;
+  }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 3rem;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 3rem;
+  }
+
+  /* ABOUT */
+  #about { background: var(--navy-mid); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(244,241,236,0.75);
+  }
+  .about-text strong { color: var(--white); font-weight: 500; }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .stat-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 1.5rem;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.02);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-top: 0.4rem;
+  }
+
+  /* EXPERIENCE */
+  #experience { background: var(--navy); }
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    position: relative;
+    transition: background 0.3s;
+  }
+  .exp-item:hover { background: rgba(255,255,255,0.015); }
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+  .exp-item:hover::before { width: 100%; }
+  .exp-meta { padding-top: 0.3rem; }
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .exp-company {
+    font-size: 0.78rem;
+    color: var(--grey);
+    line-height: 1.5;
+  }
+  .exp-role {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .exp-desc {
+    color: rgba(244,241,236,0.65);
+    font-size: 0.9rem;
+    line-height: 1.75;
+  }
+  .exp-desc li { margin-bottom: 0.4rem; margin-left: 1rem; }
+
+  /* SKILLS */
+  #skills { background: var(--navy-mid); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .skill-block {
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 2rem;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.02);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .skill-block:hover { border-color: var(--accent2); transform: translateY(-4px); }
+  .skill-block-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  .skill-block-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 1rem;
+  }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .pill {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.25rem 0.7rem;
+    font-size: 0.72rem;
+    border-radius: 20px;
+    color: rgba(244,241,236,0.75);
+  }
+
+  /* CERTS */
+  #certs { background: var(--navy); }
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+  .cert-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 1.8rem;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+    background: rgba(255,255,255,0.015);
+  }
+  .cert-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, var(--accent), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .cert-card:hover { border-color: rgba(232,69,26,0.4); transform: translateY(-3px); }
+  .cert-card:hover::after { transform: scaleX(1); }
+  .cert-issuer {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .cert-name {
+    font-size: 0.88rem;
+    color: var(--white);
+    line-height: 1.5;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+  }
+  .cert-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--grey);
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--navy-mid);
+    text-align: center;
+  }
+  .contact-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    letter-spacing: 0.04em;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .contact-big span {
+    -webkit-text-stroke: 1px rgba(244,241,236,0.25);
+    color: transparent;
+  }
+  .contact-sub {
+    color: var(--grey);
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .contact-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    background: var(--navy);
+  }
+  footer p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--grey);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%,100% { opacity: 0.3; }
+    50%      { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { padding: 0 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .cert-grid { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.8rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">SR<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certs">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="track-lines">
+    <div class="track-accent"></div>
+    <div class="track-accent2"></div>
+  </div>
+
+  <p class="hero-eyebrow">Available for Opportunities · Automotive Engineering</p>
+  <h1 class="hero-name">
+    Sivaraman
+    <span class="outline">R</span>
+  </h1>
+  <div class="hero-sub">
+    <span class="tag hot">Manufacturing</span>
+    <span class="tag">Production Planning & Control</span>
+    <span class="tag">Supply Chain</span>
+    <span class="tag">C-V2X · Connected Vehicles</span>
+    <span class="tag">Tier-1 Automotive</span>
+  </div>
+  <div class="hero-cta">
+    <a href="mailto:r.sivaraman31@gmail.com" class="btn btn-primary">Get in Touch ↗</a>
+    <a href="#experience" class="btn btn-outline">View Experience</a>
+  </div>
+
+  <div class="hero-scroll">
+    <span class="scroll-label">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label reveal">// 01 — About</p>
+  <h2 class="section-title reveal">Who I Am</h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>Final-year <strong>Mechanical Engineering student</strong> with 2.5+ years of hands-on experience across Tier-1 automotive manufacturing — spanning CNC precision machining, quality engineering, and production planning within the <strong>Motherson Group ecosystem</strong>.</p>
+      <br>
+      <p>I'm passionate about where manufacturing meets the future — <strong>connected vehicles, semiconductor supply chains, and intelligent mobility</strong>. Certified by Qualcomm in C-V2X, TSMC in semiconductor fundamentals, and Formula 1 in high-performance leadership.</p>
+      <br>
+      <p>Currently learning <strong>CATIA V5</strong> to complement my shop-floor and operations background with design capability. Seeking core engineering roles with top-tier OEMs or Tier-1 suppliers.</p>
+    </div>
+    <div class="about-stats reveal">
+      <div class="stat-card">
+        <div class="stat-num">2.5+</div>
+        <div class="stat-label">Years Industry Exp.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Tier-1 Companies</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">76%</div>
+        <div class="stat-label">Diploma Score</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label reveal">// 02 — Experience</p>
+  <h2 class="section-title reveal">Where I've Worked</h2>
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-date">Dec 2025 – May 2026</div>
+        <div class="exp-company">SMRC Automotive Products India Ltd.<br><em>Motherson Group · Kancheepuram</em></div>
+      </div>
+      <div>
+        <div class="exp-role">PPC & Plastic Moulding Intern</div>
+        <div class="exp-desc">
+          <ul>
+            <li>Supported production planning and material requisition to maintain on-time manufacturing schedules</li>
+            <li>Tracked inbound material flow and maintained minimum two-stock buffer norms with stores & supplier teams</li>
+            <li>Monitored purchase orders, escalated shortages, and coordinated with suppliers to prevent stoppages</li>
+            <li>Analysed production and inventory data to identify bottlenecks and contribute to management reporting</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-date">Apr 2023 – Aug 2023</div>
+        <div class="exp-company">Allison Transmission India</div>
+      </div>
+      <div>
+        <div class="exp-role">Quality Engineer</div>
+        <div class="exp-desc">
+          <ul>
+            <li>Managed gauge calibration schedules and maintained inspection records for audit compliance</li>
+            <li>Tracked quality records for supplier-delivered components and supported non-conformance reporting</li>
+            <li>Coordinated between production and quality teams to maintain compliance KPIs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-meta">
+        <div class="exp-date">Aug 2021 – Mar 2023</div>
+        <div class="exp-company">IM Gears Private Limited</div>
+      </div>
+      <div>
+        <div class="exp-role">CNC / VMC Machine Operator</div>
+        <div class="exp-desc">
+          <ul>
+            <li>Operated CNC and VMC machines for precision gear manufacturing to dimensional and surface quality standards</li>
+            <li>Monitored cutting tool life and wear cycles to reduce scrap and optimise tooling change intervals</li>
+            <li>Developed hands-on understanding of BOM structures, tooling cycles, and production scheduling</li>
+            <li>Participated in 5S initiatives and daily production target achievement routines</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label reveal">// 03 — Skills</p>
+  <h2 class="section-title reveal">What I Bring</h2>
+  <div class="skills-grid">
+    <div class="skill-block reveal">
+      <div class="skill-block-icon">⚙️</div>
+      <div class="skill-block-title">Core Operations</div>
+      <div class="skill-pills">
+        <span class="pill">Production Planning & Control</span>
+        <span class="pill">Manufacturing Ops</span>
+        <span class="pill">Procurement Coordination</span>
+        <span class="pill">Supplier Management</span>
+        <span class="pill">Inventory Tracking</span>
+        <span class="pill">BOM Understanding</span>
+      </div>
+    </div>
+    <div class="skill-block reveal">
+      <div class="skill-block-icon">🔬</div>
+      <div class="skill-block-title">Quality & Lean</div>
+      <div class="skill-pills">
+        <span class="pill">Lean Manufacturing</span>
+        <span class="pill">5S</span>
+        <span class="pill">Gauge Calibration</span>
+        <span class="pill">Audit Compliance</span>
+        <span class="pill">Root Cause Analysis</span>
+        <span class="pill">Quality Documentation</span>
+      </div>
+    </div>
+    <div class="skill-block reveal">
+      <div class="skill-block-icon">💻</div>
+      <div class="skill-block-title">Tools & Tech</div>
+      <div class="skill-pills">
+        <span class="pill">MS Excel</span>
+        <span class="pill">ERP Systems</span>
+        <span class="pill">KPI Tracking</span>
+        <span class="pill">Data Analysis</span>
+        <span class="pill">CATIA V5 (Learning)</span>
+        <span class="pill">PowerPoint</span>
+      </div>
+    </div>
+    <div class="skill-block reveal">
+      <div class="skill-block-icon">🏭</div>
+      <div class="skill-block-title">Machine Exposure</div>
+      <div class="skill-pills">
+        <span class="pill">CNC Operations</span>
+        <span class="pill">VMC Operations</span>
+        <span class="pill">Plastic Moulding</span>
+        <span class="pill">Gear Manufacturing</span>
+      </div>
+    </div>
+    <div class="skill-block reveal">
+      <div class="skill-block-icon">🚗</div>
+      <div class="skill-block-title">Automotive Domains</div>
+      <div class="skill-pills">
+        <span class="pill">Connected Vehicles (C-V2X)</span>
+        <span class="pill">Semiconductor Supply Chain</span>
+        <span class="pill">Tier-1 Manufacturing</span>
+        <span class="pill">OEM Processes</span>
+      </div>
+    </div>
+    <div class="skill-block reveal">
+      <div class="skill-block-icon">🌐</div>
+      <div class="skill-block-title">Languages</div>
+      <div class="skill-pills">
+        <span class="pill">Tamil — Native</span>
+        <span class="pill">English — Professional</span>
+        <span class="pill">French — Learning</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certs">
+  <p class="section-label reveal">// 04 — Certifications</p>
+  <h2 class="section-title reveal">Credentials</h2>
+  <div class="cert-grid">
+    <div class="cert-card reveal">
+      <div class="cert-issuer">Formula 1 · Santander Open Academy</div>
+      <div class="cert-name">High-Performance Leadership: Lessons from Formula 1®</div>
+      <div class="cert-date">2024</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-issuer">Qualcomm</div>
+      <div class="cert-name">C-V2X Technical Training Seminar — Connected Vehicle Technology</div>
+      <div class="cert-date">Feb 2025</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-issuer">TSMC</div>
+      <div class="cert-name">How Semiconductors Shape the World — A TSMC Perspective</div>
+      <div class="cert-date">2024</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-issuer">SMRC · Motherson Group</div>
+      <div class="cert-name">Internship Completion Certificate — PPC & Plastic Moulding</div>
+      <div class="cert-date">May 2026</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-issuer">IM Gears Private Limited</div>
+      <div class="cert-name">Industrial Training Certificate — CNC Machining & Quality</div>
+      <div class="cert-date">2021 – 2023</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-issuer">Self-directed Learning</div>
+      <div class="cert-name">Entrepreneurship & Startup Fundamentals</div>
+      <div class="cert-date">2024</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label reveal" style="text-align:center">// 05 — Contact</p>
+  <div class="contact-big reveal">Let's <span>Build</span><br>Together</div>
+  <p class="contact-sub reveal">Open to automotive, manufacturing & supply chain roles across India.</p>
+  <div class="contact-links reveal">
+    <a href="mailto:r.sivaraman31@gmail.com" class="contact-link">r.sivaraman31@gmail.com</a>
+    <a href="tel:+919751100103" class="contact-link">+91 97511 00103</a>
+    <a href="#" class="contact-link">Vellore, Tamil Nadu</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Sivaraman R — Automotive Engineering</p>
+  <p>Built for opportunities. Driven by precision.</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+  document.querySelectorAll('a, button, .stat-card, .skill-block, .cert-card, .exp-item').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform += ' scale(2)'; ring.style.width = '56px'; ring.style.height = '56px'; ring.style.borderColor = 'rgba(232,69,26,0.8)'; });
+    el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; ring.style.borderColor = 'rgba(232,69,26,0.5)'; });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
