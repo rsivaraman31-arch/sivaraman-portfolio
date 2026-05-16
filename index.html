@@ -17,6 +17,7 @@
     --white: #F4F1EC;
     --grey: #8A8A8A;
     --grid: rgba(255,255,255,0.04);
+    --gold: #C9A84C;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -27,22 +28,21 @@
 
   body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; z-index: 0; }
 
-  /* NAV */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 3rem; background: linear-gradient(to bottom, rgba(11,29,58,0.97), transparent); backdrop-filter: blur(4px); }
   .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.12em; color: var(--white); text-decoration: none; }
   .nav-logo span { color: var(--accent); }
   .nav-center { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
   .nav-center a { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey); text-decoration: none; transition: color 0.2s; }
   .nav-center a:hover { color: var(--accent); }
+  .nav-wisdom { color: var(--gold) !important; border: 1px solid rgba(201,168,76,0.35); padding: 0.3rem 0.8rem; border-radius: 2px; transition: all 0.2s !important; }
+  .nav-wisdom:hover { background: rgba(201,168,76,0.1) !important; border-color: var(--gold) !important; }
 
-  /* HAMBURGER */
   .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; cursor: none; background: none; border: none; padding: 4px; z-index: 300; }
   .hamburger span { display: block; width: 100%; height: 1.5px; background: var(--white); transition: transform 0.3s ease, opacity 0.3s ease, background 0.2s; transform-origin: center; }
   .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--accent); }
   .hamburger.open span:nth-child(2) { opacity: 0; }
   .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--accent); }
 
-  /* MOBILE DRAWER */
   .mobile-menu { position: fixed; top: 0; right: -100%; width: min(320px, 85vw); height: 100vh; background: #0a1628; border-left: 1px solid rgba(255,255,255,0.07); z-index: 250; display: flex; flex-direction: column; padding: 6rem 2.5rem 3rem; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
   .mobile-menu.open { right: 0; }
   .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 240; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
@@ -60,7 +60,6 @@
   .mobile-menu ul li a:hover { color: var(--accent); padding-left: 0.5rem; }
   .mobile-footer { margin-top: auto; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; color: rgba(138,138,138,0.4); text-transform: uppercase; }
 
-  /* HERO */
   #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 3rem 5rem; position: relative; overflow: hidden; }
   .track-lines { position: absolute; top: 0; right: 0; width: 55%; height: 100%; overflow: hidden; pointer-events: none; }
   .track-lines::before { content: ''; position: absolute; top: -10%; right: -5%; width: 120%; height: 120%; background: repeating-linear-gradient(-12deg, transparent, transparent 28px, rgba(232,69,26,0.06) 28px, rgba(232,69,26,0.06) 30px); }
@@ -86,12 +85,10 @@
   .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--accent), transparent); animation: scrollPulse 2s ease infinite; }
   .scroll-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--grey); writing-mode: vertical-rl; }
 
-  /* SECTIONS */
   section { position: relative; z-index: 1; padding: 6rem 3rem; }
   .section-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
   .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 0.05em; color: var(--white); margin-bottom: 3rem; }
 
-  /* ABOUT */
   #about { background: var(--navy-mid); }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
   .about-text { font-size: 1.05rem; line-height: 1.85; color: rgba(244,241,236,0.75); }
@@ -102,7 +99,6 @@
   .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--accent); line-height: 1; }
   .stat-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey); margin-top: 0.4rem; }
 
-  /* EXPERIENCE */
   #experience { background: var(--navy); }
   .exp-list { display: flex; flex-direction: column; }
   .exp-item { display: grid; grid-template-columns: 220px 1fr; gap: 2rem; padding: 2.5rem 0; border-top: 1px solid rgba(255,255,255,0.07); position: relative; transition: background 0.3s; }
@@ -116,7 +112,6 @@
   .exp-desc { color: rgba(244,241,236,0.65); font-size: 0.9rem; line-height: 1.75; }
   .exp-desc li { margin-bottom: 0.4rem; margin-left: 1rem; }
 
-  /* SKILLS */
   #skills { background: var(--navy-mid); }
   .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   .skill-block { border: 1px solid rgba(255,255,255,0.08); padding: 2rem; border-radius: 4px; background: rgba(255,255,255,0.02); transition: border-color 0.3s, transform 0.3s; }
@@ -133,15 +128,35 @@
   .article-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--accent); transition: height 0.4s ease; }
   .article-card:hover { border-color: rgba(232,69,26,0.35); transform: translateY(-4px); }
   .article-card:hover::before { height: 100%; }
+  .article-card-thumb { width: 100%; height: 140px; border-radius: 3px; overflow: hidden; margin-bottom: 0.4rem; position: relative; }
+  .article-card-thumb-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; }
   .article-tag { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
   .article-title { font-size: 1rem; font-weight: 500; color: var(--white); line-height: 1.5; }
   .article-excerpt { font-size: 0.82rem; color: rgba(244,241,236,0.5); line-height: 1.7; flex: 1; }
   .article-meta { display: flex; justify-content: space-between; align-items: center; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--grey); border-top: 1px solid rgba(255,255,255,0.06); padding-top: 0.8rem; margin-top: auto; }
   .article-arrow { color: var(--accent); font-size: 0.9rem; transition: transform 0.2s; }
   .article-card:hover .article-arrow { transform: translate(3px, -3px); }
-  .articles-more { margin-top: 2.5rem; text-align: center; }
-  .articles-more a { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--grey); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
-  .articles-more a:hover { color: var(--accent); border-color: var(--accent); }
+  .article-read-btn { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: rgba(232,69,26,0.1); border: 1px solid rgba(232,69,26,0.3); padding: 0.3rem 0.7rem; border-radius: 2px; }
+
+  /* ARTICLE MODAL */
+  .article-modal-overlay { position: fixed; inset: 0; background: rgba(5,12,25,0.92); backdrop-filter: blur(12px); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 2rem 1rem; }
+  .article-modal-overlay.open { opacity: 1; pointer-events: all; }
+  .article-modal { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; max-width: 780px; width: 100%; margin: auto; position: relative; transform: translateY(30px); transition: transform 0.4s ease; overflow: hidden; }
+  .article-modal-overlay.open .article-modal { transform: translateY(0); }
+  .article-modal-hero { width: 100%; height: 220px; display: flex; align-items: center; justify-content: center; font-size: 6rem; position: relative; }
+  .article-modal-hero-label { position: absolute; bottom: 1.2rem; left: 2rem; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+  .article-modal-body { padding: 2.5rem 3rem 3rem; }
+  .article-modal-tag { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; }
+  .article-modal-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: 0.04em; color: var(--white); line-height: 1.1; margin-bottom: 2rem; }
+  .article-modal-content { color: rgba(244,241,236,0.78); font-size: 0.96rem; line-height: 1.9; }
+  .article-modal-content p { margin-bottom: 1.2rem; }
+  .article-modal-content h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em; color: var(--accent2); margin: 2rem 0 0.8rem; }
+  .article-modal-content ul { margin: 0.5rem 0 1.2rem 1.5rem; }
+  .article-modal-content ul li { margin-bottom: 0.5rem; }
+  .article-modal-content blockquote { border-left: 3px solid var(--accent); padding: 0.8rem 1.5rem; margin: 1.5rem 0; background: rgba(232,69,26,0.05); border-radius: 0 4px 4px 0; font-style: italic; color: rgba(244,241,236,0.6); }
+  .article-modal-close { position: absolute; top: 1.2rem; right: 1.2rem; width: 36px; height: 36px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: none; color: var(--white); font-size: 1.1rem; transition: background 0.2s, border-color 0.2s; z-index: 10; }
+  .article-modal-close:hover { background: var(--accent); border-color: var(--accent); }
+  .article-modal-footer { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--grey); display: flex; justify-content: space-between; align-items: center; }
 
   /* CERTS */
   #certs { background: var(--navy-mid); }
@@ -154,7 +169,6 @@
   .cert-name { font-size: 0.88rem; color: var(--white); line-height: 1.5; font-weight: 500; margin-bottom: 0.8rem; }
   .cert-date { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--grey); }
 
-  /* CONTACT */
   #contact { background: var(--navy-mid); text-align: center; }
   .contact-big { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 7rem); letter-spacing: 0.04em; color: var(--white); margin-bottom: 0.5rem; }
   .contact-big span { -webkit-text-stroke: 1px rgba(244,241,236,0.25); color: transparent; }
@@ -164,18 +178,15 @@
   .contact-link:hover { color: var(--accent); border-color: var(--accent); }
   .contact-link svg { width: 13px; height: 13px; fill: currentColor; }
 
-  /* FOOTER */
   footer { padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.07); background: var(--navy); }
   footer p { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; color: var(--grey); }
 
-  /* ANIMATIONS */
   @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes scrollPulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* MOBILE */
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .nav-center { display: none; }
@@ -188,6 +199,7 @@
     .articles-grid { grid-template-columns: 1fr; }
     .exp-item { grid-template-columns: 1fr; gap: 0.8rem; }
     footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .article-modal-body { padding: 1.5rem; }
   }
   @media (min-width: 769px) { .hamburger { display: none; } }
 </style>
@@ -198,9 +210,27 @@
 <div class="cursor-ring" id="cursorRing"></div>
 <div class="mobile-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
 
+<!-- ARTICLE MODAL -->
+<div class="article-modal-overlay" id="articleModal" onclick="closeArticle(event)">
+  <div class="article-modal" id="articleModalInner">
+    <button class="article-modal-close" onclick="closeArticleBtn()">✕</button>
+    <div class="article-modal-hero" id="modalHero"></div>
+    <div class="article-modal-body">
+      <div class="article-modal-tag" id="modalTag"></div>
+      <div class="article-modal-title" id="modalTitle"></div>
+      <div class="article-modal-content" id="modalContent"></div>
+      <div class="article-modal-footer">
+        <span>Sivaraman R · 2025</span>
+        <span id="modalReadTime"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Mobile drawer -->
 <div class="mobile-menu" id="mobileMenu">
   <ul>
+    <li><a href="hall-of-wisdom.html" onclick="closeMenu()" style="color:var(--gold);">Hall of Wisdom ✦</a></li>
     <li><a href="#about" onclick="closeMenu()">About</a></li>
     <li><a href="#experience" onclick="closeMenu()">Experience</a></li>
     <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
@@ -211,10 +241,10 @@
   <div class="mobile-footer">Sivaraman R · Mechanical Engineer</div>
 </div>
 
-<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">SR<span>.</span></a>
   <ul class="nav-center">
+    <li><a href="hall-of-wisdom.html" class="nav-wisdom">Hall of Wisdom ✦</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -227,7 +257,6 @@
   </button>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="track-lines"><div class="track-accent"></div><div class="track-accent2"></div></div>
   <p class="hero-eyebrow">Available for Opportunities · Mechanical Engineering</p>
@@ -250,7 +279,6 @@
   <div class="hero-scroll"><span class="scroll-label">Scroll</span><div class="scroll-line"></div></div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <p class="section-label reveal">// 01 — About</p>
   <h2 class="section-title reveal">Who I Am</h2>
@@ -269,7 +297,6 @@
   </div>
 </section>
 
-<!-- EXPERIENCE -->
 <section id="experience">
   <p class="section-label reveal">// 02 — Experience</p>
   <h2 class="section-title reveal">Where I've Worked</h2>
@@ -322,7 +349,6 @@
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
   <p class="section-label reveal">// 03 — Skills</p>
   <h2 class="section-title reveal">What I Bring</h2>
@@ -342,42 +368,58 @@
   <h2 class="section-title reveal">What I Write About</h2>
   <div class="articles-grid">
 
-    <a class="article-card reveal" href="articles/breaking-the-chain.html">
+    <div class="article-card reveal" onclick="openArticle('breaking-the-chain')">
+      <div class="article-card-thumb">
+        <div class="article-card-thumb-bg" style="background: linear-gradient(135deg, #0d2137 0%, #1a4a2e 100%);">🌱</div>
+      </div>
       <span class="article-tag">Finance · Philosophy</span>
       <div class="article-title">Breaking the Chain: Redefining Generational Wealth & Purpose</div>
       <div class="article-excerpt">Generational wealth isn't just about money — it's about breaking the mental patterns passed down through families and rewriting what you leave behind.</div>
-      <div class="article-meta"><span>2025</span><span class="article-arrow">↗</span></div>
-    </a>
+      <div class="article-meta"><span>2025 · 5 min read</span><span class="article-arrow">↗</span></div>
+    </div>
 
-    <a class="article-card reveal" href="articles/market-opportunities.html">
+    <div class="article-card reveal" onclick="openArticle('market-opportunities')">
+      <div class="article-card-thumb">
+        <div class="article-card-thumb-bg" style="background: linear-gradient(135deg, #0d2137 0%, #2a1f0a 100%);">📈</div>
+      </div>
       <span class="article-tag">Investing · Strategy</span>
       <div class="article-title">How to Unlock Market Opportunities & Steady Returns</div>
       <div class="article-excerpt">A practical look at finding consistent returns in the market — built on patience, discipline, and understanding what most investors overlook.</div>
-      <div class="article-meta"><span>2025</span><span class="article-arrow">↗</span></div>
-    </a>
+      <div class="article-meta"><span>2025 · 5 min read</span><span class="article-arrow">↗</span></div>
+    </div>
 
-    <a class="article-card reveal" href="articles/becoming-warren-buffett.html">
+    <div class="article-card reveal" onclick="openArticle('becoming-warren-buffett')">
+      <div class="article-card-thumb">
+        <div class="article-card-thumb-bg" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">🦅</div>
+      </div>
       <span class="article-tag">Leadership · Wealth</span>
       <div class="article-title">Becoming Warren Buffett: Life, Wealth, Wisdom & Giving</div>
       <div class="article-excerpt">What the Oracle of Omaha really teaches us — not just about investing, but about building a life with intention, simplicity, and lasting purpose.</div>
-      <div class="article-meta"><span>2025</span><span class="article-arrow">↗</span></div>
-    </a>
+      <div class="article-meta"><span>2025 · 5 min read</span><span class="article-arrow">↗</span></div>
+    </div>
 
-    <a class="article-card reveal" href="articles/jrd-tata.html">
+    <div class="article-card reveal" onclick="openArticle('jrd-tata')">
+      <div class="article-card-thumb">
+        <div class="article-card-thumb-bg" style="background: linear-gradient(135deg, #1a0a0a 0%, #3d1515 50%, #6b2020 100%);">🏛️</div>
+      </div>
       <span class="article-tag">Leadership · India</span>
       <div class="article-title">JRD Tata: The Visionary Who Planted Seeds of India's Progress</div>
       <div class="article-excerpt">How one man's quiet ambition built airlines, steel plants, and a culture of trust that still shapes modern India — and what every engineer can learn from him.</div>
-      <div class="article-meta"><span>2025</span><span class="article-arrow">↗</span></div>
-    </a>
+      <div class="article-meta"><span>2025 · 11 min read</span><span class="article-arrow">↗</span></div>
+    </div>
 
-    <a class="article-card reveal" href="articles/ripple-of-hope.html">
+    <div class="article-card reveal" onclick="openArticle('ripple-of-hope')">
+      <div class="article-card-thumb">
+        <div class="article-card-thumb-bg" style="background: linear-gradient(135deg, #0a0a1a 0%, #1a2a4a 50%, #0d3b6e 100%);">🌊</div>
+      </div>
       <span class="article-tag">Reflection · Life</span>
       <div class="article-title">Ripple of Hope</div>
       <div class="article-excerpt">A personal reflection on what it means to keep going — even when the path is unclear. On hope, resilience, and the quiet courage it takes to show up every day.</div>
-      <div class="article-meta"><span>2025</span><span class="article-arrow">↗</span></div>
-    </a>
+      <div class="article-meta"><span>2025 · 4 min read</span><span class="article-arrow">↗</span></div>
+    </div>
 
     <a class="article-card reveal" href="https://www.linkedin.com/in/siva-raman-b9645b300/" target="_blank" style="justify-content:center; align-items:center; text-align:center; border-style:dashed;">
+      <span style="font-size:2rem;">✍️</span>
       <span class="article-tag">More Coming</span>
       <div class="article-title" style="color:var(--grey)">More articles on LinkedIn</div>
       <div class="article-excerpt" style="text-align:center;">Follow along for new writing on finance, manufacturing, and philosophy.</div>
@@ -387,7 +429,6 @@
   </div>
 </section>
 
-<!-- CERTS -->
 <section id="certs">
   <p class="section-label reveal">// 05 — Certifications</p>
   <h2 class="section-title reveal">Credentials</h2>
@@ -401,7 +442,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <p class="section-label reveal" style="text-align:center">// 06 — Contact</p>
   <div class="contact-big reveal">Let's <span>Build</span><br>Together</div>
@@ -423,21 +463,225 @@
 </footer>
 
 <script>
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-  function animCursor(){cursor.style.transform=`translate(${mx-5}px,${my-5}px)`;rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;requestAnimationFrame(animCursor);}
-  animCursor();
-  document.querySelectorAll('a,button,.stat-card,.skill-block,.cert-card,.exp-item,.article-card').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{ring.style.width='56px';ring.style.height='56px';ring.style.borderColor='rgba(232,69,26,0.8)';});
-    el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(232,69,26,0.5)';});
-  });
-  function toggleMenu(){const m=document.getElementById('mobileMenu'),o=document.getElementById('mobileOverlay'),b=document.getElementById('hamburger');if(m.classList.contains('open')){closeMenu();}else{m.classList.add('open');o.classList.add('open');b.classList.add('open');document.body.style.overflow='hidden';}}
-  function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.getElementById('mobileOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open');document.body.style.overflow='';}
-  const reveals=document.querySelectorAll('.reveal');
-  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),80);obs.unobserve(e.target);}});},{threshold:0.1});
-  reveals.forEach(el=>obs.observe(el));
+// ── CURSOR ──
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+function animCursor(){cursor.style.transform=`translate(${mx-5}px,${my-5}px)`;rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;requestAnimationFrame(animCursor);}
+animCursor();
+document.querySelectorAll('a,button,.stat-card,.skill-block,.cert-card,.exp-item,.article-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='56px';ring.style.height='56px';ring.style.borderColor='rgba(232,69,26,0.8)';});
+  el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(232,69,26,0.5)';});
+});
+
+// ── MOBILE MENU ──
+function toggleMenu(){const m=document.getElementById('mobileMenu'),o=document.getElementById('mobileOverlay'),b=document.getElementById('hamburger');if(m.classList.contains('open')){closeMenu();}else{m.classList.add('open');o.classList.add('open');b.classList.add('open');document.body.style.overflow='hidden';}}
+function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.getElementById('mobileOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open');document.body.style.overflow='';}
+
+// ── REVEAL ──
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),80);obs.unobserve(e.target);}});},{threshold:0.1});
+reveals.forEach(el=>obs.observe(el));
+
+// ── ARTICLES DATA ──
+const articles = {
+  'breaking-the-chain': {
+    tag: 'Finance · Philosophy',
+    title: 'Breaking the Chain: Redefining Generational Wealth & Purpose',
+    readTime: '5 min read',
+    heroBg: 'linear-gradient(135deg, #0d2137 0%, #1a4a2e 100%)',
+    heroEmoji: '🌱',
+    heroLabel: 'Finance · Philosophy · 2025',
+    content: `
+      <p>At 21, I find myself pondering life's big questions: Why do people fight over greed, pride, or temporary power? Why is there such a wide financial divide in society? Why do many lack the knowledge to manage money or understand history?</p>
+      <p>These questions often lead me to reflect on the human condition and our choices. It's disheartening to see how societal pressures push people to chase material possessions for validation — be it luxury cars, grand homes, or the latest gadgets. This endless pursuit of status often comes at the cost of long-term stability, leading to stress, debt, and regret.</p>
+      <p>But the good news? There's a way out. Through effort, discipline, and continuous learning, we can break free from this cycle and lead more meaningful lives.</p>
+      <h3>The Purpose of Life & Lifelong Learning</h3>
+      <p>To me, life is about growth, contribution, and meaning. It's not just about achieving financial security or career success but also about evolving as a person and helping others grow. Sadly, traditional education often falls short of preparing us for real-world challenges.</p>
+      <p>While schools teach us formulas and theories, they rarely focus on the life skills we need most — managing emotions during tough times, making smart financial decisions, and understanding history to learn from the past.</p>
+      <p>What's the point of earning a good salary if you don't know how to manage your money? Money, at its core, is a tool for freedom, security, and creating opportunities — not a measure of self-worth.</p>
+      <h3>My Journey as a First-Generation Graduate</h3>
+      <p>As a first-generation graduate, I carry the hopes and dreams of my family. This responsibility motivates me to work harder and be wiser than those before me. To navigate life's complexities, I've turned to books — books that offer timeless wisdom from some of history's greatest minds.</p>
+      <p>Leaders who inspire me: <strong>Marcus Aurelius</strong> — resilience and self-discipline. <strong>Charlie Munger</strong> — the power of lifelong learning. <strong>Benjamin Franklin</strong> — self-improvement and financial insight. <strong>Warren Buffett</strong> — patience, discipline, and long-term thinking.</p>
+      <h3>The Trap of Instant Gratification</h3>
+      <p>In today's world, instant gratification is a silent killer of dreams. Many people fall into the trap of prioritizing short-term pleasures over long-term gains. Whether it's upgrading to the latest smartphone or buying a luxury car on EMI, these choices often lead to financial strain.</p>
+      <blockquote>If you're the first in your family to break generational cycles, it's essential to accept that you can't have it all at once. Success is not about flashy possessions; it's about building a strong foundation for a better future.</blockquote>
+      <h3>Becoming a Linchpin</h3>
+      <p>In any field, the goal should be to become a linchpin — someone indispensable to their organization or community. Two qualities are essential: <strong>Knowledge</strong> (stay curious, keep learning) and <strong>Willpower</strong> (master your craft, no matter how difficult).</p>
+      <p>Take inspiration from Charlie Munger, who even at the age of 99, with only one functional eye, read voraciously every single day. His relentless pursuit of knowledge is a testament to the power of lifelong learning.</p>
+      <h3>The Importance of Financial Literacy</h3>
+      <ul>
+        <li>Money is a tool, not the goal — use it wisely to create freedom and security.</li>
+        <li>Save and invest early — even small, consistent efforts compound over time.</li>
+        <li>Understand risks — calculated risks lead to smarter decisions.</li>
+        <li>Be disciplined — success requires repeating good habits, even when it's tough.</li>
+      </ul>
+      <h3>Giving Back to Society</h3>
+      <p>I firmly believe that growth is most meaningful when shared. As we rise, we must lift others with us. Education and financial literacy aren't just personal goals — they're responsibilities.</p>
+      <blockquote>Let's grow together and create a future where knowledge, kindness, and discipline pave the way for success.</blockquote>
+    `
+  },
+  'market-opportunities': {
+    tag: 'Investing · Strategy',
+    title: 'How to Unlock Market Opportunities & Steady Returns',
+    readTime: '5 min read',
+    heroBg: 'linear-gradient(135deg, #0d2137 0%, #2a1f0a 100%)',
+    heroEmoji: '📈',
+    heroLabel: 'Investing · Strategy · 2025',
+    content: `
+      <p>When it comes to investing, many great individuals emphasize that holding stocks for the long term often outshines the volatility of short-term trading. This principle is especially true for those of us who may not have extensive financial expertise.</p>
+      <h3>Know What You Own</h3>
+      <p>The first step to successful long-term investing is to thoroughly understand the company you're investing in. Every investor should know the business model, the sector it operates in, and its long-term prospects.</p>
+      <p>Key questions to consider: What does the company do? Is it regulated by the government? Who is managing it? What is its financial health — debt levels, revenue growth, profit margins?</p>
+      <h3>Stay Updated on News and Trends</h3>
+      <p>As investors, we should stay updated on both local and international news that can directly or indirectly impact the market. Changes in regulations, supply chain disruptions, or shifts in global demand can all affect stock performance.</p>
+      <p>Watch for regulatory approvals, market conditions, and sector-specific news. Certain industries like pharmaceuticals or technology can experience fluctuations due to innovations, mergers, or legal challenges.</p>
+      <h3>Understand the Bigger Picture</h3>
+      <p>Jamie Dimon, CEO of JPMorgan Chase, often says, "The market is always noisy." Geopolitical tensions, labor strikes, or raw material shortages are constant variables — but as investors, it's essential to separate short-term noise from long-term trends.</p>
+      <blockquote>Instead of reacting impulsively to minor setbacks, assess the situation: Is this a temporary issue, or does it reflect deeper structural problems?</blockquote>
+      <h3>Seizing Opportunities During Downturns</h3>
+      <p>When we find a great deal in everyday life, we rush to stock up. But in the stock market, this behavior is often reversed. When stock prices of fundamentally strong companies decline due to temporary issues, many investors panic and sell.</p>
+      <blockquote>"Be fearful when others are greedy and greedy when others are fearful." — Warren Buffett</blockquote>
+      <h3>Investing is Like Planting a Seed</h3>
+      <p>Investing in stocks is akin to planting a seed. It requires time, care, and patience to grow. You don't uproot the seed at the first sign of bad weather; instead, you nurture it, ensuring it has the resources to thrive.</p>
+      <h3>Avoid FOMO</h3>
+      <p>The stock market often sees sudden trends — hype around a new technology or product. It's important not to get caught up in FOMO (Fear of Missing Out). Stick to investing in companies you understand and research thoroughly.</p>
+      <h3>Conclusion</h3>
+      <ul>
+        <li><strong>Know What You Own</strong> — thoroughly research the companies you invest in.</li>
+        <li><strong>Stay Updated</strong> — informed about global and domestic factors.</li>
+        <li><strong>Understand the Bigger Picture</strong> — focus on long-term growth.</li>
+        <li><strong>Seize Downturns</strong> — recognize market overreactions.</li>
+        <li><strong>Practice Patience</strong> — nurture your investments over time.</li>
+        <li><strong>Avoid FOMO</strong> — stick to your strategy.</li>
+      </ul>
+      <blockquote>"The big money is not in the buying and selling, but in the waiting." — Charlie Munger</blockquote>
+    `
+  },
+  'becoming-warren-buffett': {
+    tag: 'Leadership · Wealth',
+    title: 'Becoming Warren Buffett: Life, Wealth, Wisdom & Giving',
+    readTime: '5 min read',
+    heroBg: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+    heroEmoji: '🦅',
+    heroLabel: 'Leadership · Wealth · 2025',
+    content: `
+      <p>Warren Buffett, the chairman of Berkshire Hathaway, is often recognized for his wealth — $146.9 billion as of 2025. But his real legacy isn't the billions he accumulated; it's the lives he impacted, the wisdom he shared, and the principles he lived by.</p>
+      <p>Buffett never measured success in dollars. For him, life wasn't about how much money he had but about how many people he helped, how much knowledge he shared, and the lasting difference he made in the world.</p>
+      <h3>A Life of Patience, Discipline & Purpose</h3>
+      <p>Buffett didn't become a billionaire overnight. He only reached that milestone at 56, in 1986. It was in his 60s and beyond that the world truly recognized his genius — not just as an investor, but as a thinker, a teacher, and a leader who always played the long game.</p>
+      <p>His journey was never about chasing quick riches or flashy success. It was about patience, discipline, and an unwavering belief in the power of compounding — not just of money, but of knowledge, trust, and goodwill.</p>
+      <h3>Understanding People, Not Just Numbers</h3>
+      <p>What made Buffett extraordinary wasn't just his ability to read financial statements — it was his deep understanding of people. He saw patterns in human behavior, understood consumer psychology, and knew what truly mattered.</p>
+      <p>A perfect example? Apple. While many saw Apple as just another tech company, Buffett saw something different. He understood that people didn't just buy Apple products for their technology; they bought into the brand, the experience, and the status it symbolized.</p>
+      <h3>How Buffett Evaluates a Company</h3>
+      <ul>
+        <li><strong>Quality of Management</strong> — integrity and long-term vision matter more than short-term profits.</li>
+        <li><strong>Cash Flow & Profitability</strong> — a business should generate consistent, strong earnings.</li>
+        <li><strong>Debt Stability</strong> — he avoids companies drowning in debt.</li>
+        <li><strong>Economic Moat</strong> — a sustainable competitive edge (brand loyalty, patents, network effects).</li>
+        <li><strong>Intrinsic Value</strong> — is this business worth more than its stock price suggests?</li>
+        <li><strong>Growth & Reinvestment</strong> — does the company use its profits wisely?</li>
+      </ul>
+      <h3>See's Candies: The Power of Emotional Investing</h3>
+      <p>One of Buffett's greatest investments wasn't a tech giant — it was a small chocolate company. He saw that See's Candies wasn't just selling chocolates; it was selling memories, nostalgia, and emotions. People bought See's for family traditions, gifts, and celebrations.</p>
+      <blockquote>Buffett understood that emotional connection, raised prices slightly knowing customers would stay loyal. The result? Higher profits reinvested to compound wealth over time. He didn't just see numbers — he saw people.</blockquote>
+      <h3>Philanthropy: A Legacy of Giving Back</h3>
+      <p>Buffett has personally donated over $60 billion — more than any other individual in history. His major contributions include the Bill & Melinda Gates Foundation (global health and education), Susan Thompson Buffett Foundation (healthcare), NoVo Foundation (women's rights), and Howard G. Buffett Foundation (food security).</p>
+      <h3>Buffett's Life Philosophy</h3>
+      <ul>
+        <li>Think long-term — in business, relationships, and personal growth.</li>
+        <li>Avoid unnecessary risks — stick to what you truly understand.</li>
+        <li>Stay humble and keep learning — never stop improving.</li>
+        <li>Live below your means — focus on value, not luxury.</li>
+        <li>Wealth isn't just money — it's knowledge, impact, and wisdom.</li>
+      </ul>
+      <blockquote>"Someone is sitting in the shade today because someone planted a tree a long time ago." — Warren Buffett</blockquote>
+      <p>That's Warren Buffett's legacy — planting trees of wisdom, wealth, and goodwill so future generations can thrive. He wasn't just a billionaire. He was a great human.</p>
+    `
+  },
+  'jrd-tata': {
+    tag: 'Leadership · India',
+    title: 'JRD Tata: The Visionary Who Planted Seeds of India\'s Progress',
+    readTime: '11 min read',
+    heroBg: 'linear-gradient(135deg, #1a0a0a 0%, #3d1515 50%, #6b2020 100%)',
+    heroEmoji: '🏛️',
+    heroLabel: 'Leadership · India · 2025',
+    content: `
+      <p>As of 2023, our planet is home to 8.025 billion people — each with different goals, mindsets, and ways of life. Yet at our core, we belong to one single tribe: humanity. But somewhere along the way, we forgot that.</p>
+      <p>Among history's rare visionaries, one name shines like a ruby among stones — JRD Tata. A special one. One in a billion.</p>
+      <h3>A Man Who Chose India</h3>
+      <p>Born in Paris, France, in 1904, Jehangir Ratanji Dadabhoy Tata had a life that could have taken many different paths. In 1925, his father called him back to India to join the Tata Group. Then, in 1929, he made a bold choice — he gave up his French citizenship to become a citizen of British-ruled India. It wasn't just a formality; it was a statement.</p>
+      <h3>A Vision for Nation-Building</h3>
+      <p>JRD Tata served as Chairman of the Tata Group for over 50 years. Beyond business, he sought to create effective philanthropy at a national scale — supporting education, women's empowerment, and healthcare.</p>
+      <ul>
+        <li><strong>Tata Memorial Hospital</strong> — a spearhead in India's fight against cancer.</li>
+        <li><strong>Tata Institute of Fundamental Research</strong> — the cradle of India's atomic energy aspirations.</li>
+        <li><strong>National Centre for the Performing Arts</strong> — South Asia's first multi-venue cultural center.</li>
+        <li>He established corporate India's first dedicated <strong>Human Resources Department</strong>.</li>
+      </ul>
+      <h3>The Birth of India's IT Revolution — TCS</h3>
+      <p>JRD Tata's vision led to the creation of Tata Consultancy Services (TCS) in 1968 — India's first IT services company. It started with a simple issue: tracking employee attendance at TISCO using card-punching machines. TCS optimized the code so impressively that Unisys approached them for a joint venture.</p>
+      <p>Today, TCS is one of the world's largest IT firms and the crown jewel of the Tata Group, providing crucial cash flow that helped sustain other businesses during challenging times.</p>
+      <h3>Driving India Forward — Tata Motors</h3>
+      <p>Founded in 1945, Tata Motors started as a locomotive manufacturer before entering commercial vehicles through a joint venture with Mercedes-Benz. Key milestones include India's first indigenous car (Tata Indica, 1998), the world's most affordable car (Tata Nano, 2008), acquisition of Jaguar & Land Rover (2008), and becoming India's leading EV manufacturer (2021).</p>
+      <h3>Every Indian's Timepiece — Titan</h3>
+      <p>Before Titan, watches were expensive and inaccessible. In 1984, Tata launched Titan in partnership with the Tamil Nadu government to provide affordable and stylish timepieces. Titan's manufacturing facility in Hosur, Tamil Nadu remains its backbone. Today Titan is a lifestyle giant — watches, jewelry (Tanishq), and eyewear globally.</p>
+      <h3>The Legacy of Air India</h3>
+      <p>Air India was founded in 1932 by JRD Tata as Tata Airlines. JRD became the first Indian to earn a pilot's license in 1929 — earning him the title <strong>Father of Indian Civil Aviation</strong>. At a time when bullock carts still filled the streets, Air India was soaring in the skies, making India a global aviation leader. In 2021, history came full circle when Air India returned to the Tata Group after nearly 70 years.</p>
+      <h3>His Enduring Legacy</h3>
+      <blockquote>"Money, like manure, loses its value when hoarded, but thrives when shared." — JRD Tata</blockquote>
+      <p>When JRD took the helm, there were just 14 companies in the Tata Group. After five decades of visionary leadership, he left behind more than 80. His dedication to people, progress, and purpose earned him India's highest civilian honor — the <strong>Bharat Ratna (1992)</strong>. He remains the only businessman to receive this honor.</p>
+      <p>J.R.D. Tata wasn't just a successful businessman; he was a visionary who saw beyond profits. A Man of the People.</p>
+    `
+  },
+  'ripple-of-hope': {
+    tag: 'Reflection · Life',
+    title: 'Ripple of Hope',
+    readTime: '4 min read',
+    heroBg: 'linear-gradient(135deg, #0a0a1a 0%, #1a2a4a 50%, #0d3b6e 100%)',
+    heroEmoji: '🌊',
+    heroLabel: 'Reflection · Life · 2025',
+    content: `
+      <p>There is discrimination in this world, as well as slavery, slaughter, and starvation. Governments repress their people, and millions are trapped in poverty while nations grow rich, lavishing wealth on armaments. These are different evils, but they are the common works of man.</p>
+      <p>They reflect the imperfection of human justice, the inadequacy of human compassion, and our lack of sensibility towards the suffering of our fellow beings. But we can, perhaps, remember — even if only for a time — that those who live with us are our brothers. They share with us the same short moment of life, and they seek, as we do, nothing but the chance to live out their lives in purpose and happiness.</p>
+      <h3>A State of Mind</h3>
+      <p>The answer is not a time of life but a state of mind — a temper of the will, a quality of imagination, a predominance of courage over timidity, and the appetite for adventure over the love of ease. The cruelties and obstacles of the swiftly changing planet will not yield to obsolete dogmas and worn-out slogans.</p>
+      <p>It is a revolutionary world we live in, and this generation has thrust upon it a greater burden of responsibility than any generation before it.</p>
+      <h3>One Person Can Change the World</h3>
+      <p>Some believe there is nothing one man or one woman can do against the enormous array of the world's ills. Yet many of the world's great movements of thought and action have flowed from the work of a single person.</p>
+      <p>A young man began the Protestant Reformation; a young general extended an empire from Macedonia to the borders of the Earth; a young woman reclaimed the territory of France; a young Italian explorer discovered the New World; and the 32-year-old Thomas Jefferson proclaimed that all men are created equal. These men and women moved the world — and so can we.</p>
+      <blockquote>Each time a man stands up for an ideal, acts to improve the lot of others, or strikes out against injustice, he sends forth a tiny ripple of hope. These ripples, crossing each other from a million different centers of energy and daring, build a current that can sweep down the mightiest walls of oppression and resistance.</blockquote>
+      <h3>Moral Courage</h3>
+      <p>If you are willing to brave the disapproval of your fellows, the censure of your colleagues, and the wrath of society — moral courage is a rarer commodity than bravery in battle or great intelligence. Yet it is an essential, vital quality for those who seek to change a world that is ripe for change.</p>
+      <p>Like it or not, we live in times of danger and uncertainty, but they are also more open to the creative energy of humanity than any other time in history. All of us will ultimately be judged — and as the years pass, we will surely judge ourselves — on the effort we have contributed to building a new world society.</p>
+      <blockquote>"Some men see things as they are and say, 'Why?' I dream things that never were and say, 'Why not?'" — Robert F. Kennedy, Day of Affirmation Address, Cape Town, 1966</blockquote>
+    `
+  }
+};
+
+function openArticle(id) {
+  const a = articles[id];
+  if (!a) return;
+  document.getElementById('modalHero').style.background = a.heroBg;
+  document.getElementById('modalHero').innerHTML = `<span style="font-size:5rem;">${a.heroEmoji}</span><span class="article-modal-hero-label">${a.heroLabel}</span>`;
+  document.getElementById('modalTag').textContent = a.tag;
+  document.getElementById('modalTitle').textContent = a.title;
+  document.getElementById('modalContent').innerHTML = a.content;
+  document.getElementById('modalReadTime').textContent = a.readTime;
+  document.getElementById('articleModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeArticle(e) {
+  if (e.target === document.getElementById('articleModal')) closeArticleBtn();
+}
+function closeArticleBtn() {
+  document.getElementById('articleModal').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('articleModal').scrollTop = 0;
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeArticleBtn(); });
 </script>
 </body>
 </html>
