@@ -63,6 +63,68 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .hero-eyebrow{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;opacity:0;animation:fadeUp .7s ease .2s forwards}
 .hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,11vw,10rem);line-height:.9;letter-spacing:.04em;color:var(--white);opacity:0;animation:fadeUp .8s ease .4s forwards}
 .hero-name .outline{-webkit-text-stroke:1px rgba(244,241,236,.3);color:transparent;display:block}
+  /* HERO IMAGE */
+
+.hero-image-wrap{
+  position:relative;
+  width:220px;
+  height:220px;
+  margin-top:2rem;
+  animation:floatImage 5s ease-in-out infinite;
+}
+
+.hero-image{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid rgba(232,69,26,.75);
+
+  box-shadow:
+    0 0 25px rgba(232,69,26,.25),
+    0 0 60px rgba(232,69,26,.12);
+
+  transition:.4s ease;
+
+  position:relative;
+  z-index:2;
+}
+
+.hero-image:hover{
+  transform:scale(1.04);
+
+  box-shadow:
+    0 0 40px rgba(232,69,26,.4),
+    0 0 90px rgba(232,69,26,.18);
+}
+
+.hero-image-glow{
+  position:absolute;
+  inset:-18px;
+
+  border-radius:50%;
+
+  background:radial-gradient(
+    circle,
+    rgba(232,69,26,.22) 0%,
+    rgba(232,69,26,.06) 45%,
+    transparent 70%
+  );
+
+  animation:pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes floatImage{
+  0%{transform:translateY(0px);}
+  50%{transform:translateY(-10px);}
+  100%{transform:translateY(0px);}
+}
+
+@keyframes pulseGlow{
+  0%{transform:scale(1);opacity:.7;}
+  50%{transform:scale(1.08);opacity:1;}
+  100%{transform:scale(1);opacity:.7;}
+}
 .hero-sub{margin-top:1.8rem;display:flex;gap:1.2rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease .6s forwards}
 .tag{border:1px solid rgba(255,255,255,.18);padding:.35rem .9rem;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);border-radius:2px;transition:border-color .2s,color .2s}
 .tag:hover{border-color:var(--accent);color:var(--accent)}
@@ -356,6 +418,13 @@ footer p{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;c
   <div class="track-lines"><div class="track-accent"></div><div class="track-accent2"></div></div>
   <p class="hero-eyebrow">Available for Opportunities · Mechanical Engineering</p>
   <h1 class="hero-name">Sivaraman<span class="outline">R</span></h1>
+  <div class="hero-image-wrap">
+  <div class="hero-image-glow"></div>
+
+  <img src="profile.png"
+       alt="Sivaraman R"
+       class="hero-image">
+</div>
   <div class="hero-sub">
     <span class="tag hot">Manufacturing</span><span class="tag">Production Planning & Control</span><span class="tag">Supply Chain</span><span class="tag">Tier-1 Automotive</span><span class="tag">Writer & Thinker</span>
   </div>
