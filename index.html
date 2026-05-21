@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sivaraman R — Mechanical Engineer</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<meta name="description" content="Sivaraman R — Mechanical Engineer with 2.5+ years of Tier-1 automotive experience. Hall of Wisdom included.">
+<meta name="description" content="Sivaraman R — Mechanical Engineer with 2.5+ years of Tier-1 automotive experience.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -26,7 +25,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .page{display:none}
 .page.active{display:block}
 
-/* ── NAV ── */
+/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 3rem;background:linear-gradient(to bottom,rgba(11,29,58,0.97),transparent);backdrop-filter:blur(4px)}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;color:var(--white);text-decoration:none;cursor:none}
 .nav-logo span{color:var(--accent)}
@@ -54,131 +53,100 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .mobile-menu ul li a:hover{color:var(--accent);padding-left:.5rem}
 .mobile-footer{margin-top:auto;font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:rgba(138,138,138,.4);text-transform:uppercase}
 
-/* ══ PORTFOLIO ══ */
-#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden}
+/* ══ HERO — FIXED TWO-COLUMN LAYOUT ══ */
+#hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:0 3rem;
+  position:relative;
+  overflow:hidden;
+}
+
 .track-lines{position:absolute;top:0;right:0;width:55%;height:100%;overflow:hidden;pointer-events:none}
 .track-lines::before{content:'';position:absolute;top:-10%;right:-5%;width:120%;height:120%;background:repeating-linear-gradient(-12deg,transparent,transparent 28px,rgba(232,69,26,.06) 28px,rgba(232,69,26,.06) 30px)}
 .track-accent{position:absolute;top:30%;right:8%;width:3px;height:40%;background:linear-gradient(to bottom,transparent,var(--accent),transparent);opacity:.5}
 .track-accent2{position:absolute;top:20%;right:15%;width:1px;height:55%;background:linear-gradient(to bottom,transparent,rgba(245,166,35,.4),transparent)}
-.hero-eyebrow{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;opacity:0;animation:fadeUp .7s ease .2s forwards}
-.hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,11vw,10rem);line-height:.9;letter-spacing:.04em;color:var(--white);opacity:0;animation:fadeUp .8s ease .4s forwards}
-.hero-name .outline{-webkit-text-stroke:1px rgba(244,241,236,.3);color:transparent;display:block}
-  /* HERO IMAGE */
 
+/* The two-column flex container */
+.hero-content{
+  width:100%;
+  display:flex;
+  flex-direction:row;          /* side by side */
+  align-items:center;
+  justify-content:space-between;
+  gap:3rem;
+  padding-top:4rem;            /* offset for fixed nav */
+  position:relative;
+  z-index:1;
+}
+
+/* LEFT: text */
+.hero-left{
+  flex:1 1 0;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+
+/* RIGHT: image — always on the right */
+.hero-right{
+  flex:0 0 auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  animation:fadeUp .9s ease .4s forwards;
+}
+
+/* Image sizing: fluid between 200–400px */
 .hero-image-wrap{
   position:relative;
-  width:220px;
-  height:220px;
-  margin-top:2rem;
+  width:clamp(200px, 26vw, 400px);
+  height:clamp(200px, 26vw, 400px);
   animation:floatImage 5s ease-in-out infinite;
+}
+
+.hero-image-glow{
+  position:absolute;
+  inset:-20px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(232,69,26,.22) 0%, rgba(232,69,26,.06) 45%, transparent 70%);
+  animation:pulseGlow 4s ease-in-out infinite;
+  z-index:1;
 }
 
 .hero-image{
   width:100%;
   height:100%;
   object-fit:cover;
+  object-position:top center;
   border-radius:50%;
   border:3px solid rgba(232,69,26,.75);
-
-  box-shadow:
-    0 0 25px rgba(232,69,26,.25),
-    0 0 60px rgba(232,69,26,.12);
-
+  box-shadow:0 0 30px rgba(232,69,26,.28),0 0 70px rgba(232,69,26,.13);
   transition:.4s ease;
-
   position:relative;
   z-index:2;
+  display:block;
 }
-
 .hero-image:hover{
   transform:scale(1.04);
-
-  box-shadow:
-    0 0 40px rgba(232,69,26,.4),
-    0 0 90px rgba(232,69,26,.18);
+  box-shadow:0 0 45px rgba(232,69,26,.45),0 0 100px rgba(232,69,26,.2);
 }
 
-.hero-image-glow{
-  position:absolute;
-  inset:-18px;
+@keyframes floatImage{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes pulseGlow{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.08);opacity:1}}
 
-  border-radius:50%;
-
-  background:radial-gradient(
-    circle,
-    rgba(232,69,26,.22) 0%,
-    rgba(232,69,26,.06) 45%,
-    transparent 70%
-  );
-
-  animation:pulseGlow 4s ease-in-out infinite;
-}
-
-@keyframes floatImage{
-  0%{transform:translateY(0px);}
-  50%{transform:translateY(-10px);}
-  100%{transform:translateY(0px);}
-}
-
-@keyframes pulseGlow{
-  0%{transform:scale(1);opacity:.7;}
-  50%{transform:scale(1.08);opacity:1;}
-  100%{transform:scale(1);opacity:.7;}
-}
-  .hero-content{
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:4rem;
-  min-height:80vh;
-}
-
-.hero-left{
-  flex:1;
-  min-width:300px;
-}
-
-.hero-right{
-  flex:1;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.hero-image-wrap{
-  width:320px;
-  height:320px;
-  max-width:80vw;
-  max-height:80vw;
-}
-
-@media(max-width:768px){
-
-  .hero-content{
-    flex-direction:column-reverse;
-    text-align:center;
-    gap:2rem;
-  }
-
-  .hero-image-wrap{
-    width:220px;
-    height:220px;
-  }
-
-  .hero-sub{
-    justify-content:center;
-  }
-
-  .hero-cta{
-    justify-content:center;
-  }
-}
-.hero-sub{margin-top:1.8rem;display:flex;gap:1.2rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease .6s forwards}
+/* Hero text elements */
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem;opacity:0;animation:fadeUp .7s ease .2s forwards}
+.hero-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,8.5vw,9.5rem);line-height:.9;letter-spacing:.04em;color:var(--white);opacity:0;animation:fadeUp .8s ease .35s forwards}
+.hero-name .outline{-webkit-text-stroke:1px rgba(244,241,236,.3);color:transparent;display:block}
+.hero-sub{margin-top:1.8rem;display:flex;gap:.6rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease .55s forwards}
 .tag{border:1px solid rgba(255,255,255,.18);padding:.35rem .9rem;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);border-radius:2px;transition:border-color .2s,color .2s}
 .tag:hover{border-color:var(--accent);color:var(--accent)}
 .tag.hot{border-color:var(--accent);color:var(--accent)}
-.hero-cta{margin-top:2.8rem;display:flex;gap:1rem;opacity:0;animation:fadeUp .8s ease .8s forwards;flex-wrap:wrap}
+.hero-cta{margin-top:2.2rem;display:flex;gap:1rem;opacity:0;animation:fadeUp .8s ease .75s forwards;flex-wrap:wrap}
+
 .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.8rem;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:all .25s;cursor:none}
 .btn-primary{background:var(--accent);color:var(--white);border:1px solid var(--accent)}
 .btn-primary:hover{background:transparent;color:var(--accent)}
@@ -187,9 +155,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .btn-linkedin{background:transparent;color:#0A66C2;border:1px solid #0A66C2}
 .btn-linkedin:hover{background:#0A66C2;color:var(--white)}
 .btn-linkedin svg{width:14px;height:14px;fill:currentColor}
+
 .hero-scroll{position:absolute;bottom:2.5rem;right:3rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeIn 1s ease 1.4s forwards}
 .scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scrollPulse 2s ease infinite}
 .scroll-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:var(--grey);writing-mode:vertical-rl}
+
+/* ── RESPONSIVE HERO ── */
+/* Medium screens: shrink image a bit */
+@media(max-width:960px){
+  #hero{padding:0 2rem}
+  .hero-content{gap:2rem}
+  .hero-image-wrap{
+    width:clamp(170px,30vw,280px);
+    height:clamp(170px,30vw,280px);
+  }
+}
+
+/* Small screens: stack vertically, image on top */
+@media(max-width:640px){
+  #hero{padding:0 1.5rem;min-height:100svh}
+  .hero-content{
+    flex-direction:column-reverse;  /* image on top, text below */
+    align-items:center;
+    text-align:center;
+    padding-top:5.5rem;
+    padding-bottom:4rem;
+    gap:1.5rem;
+  }
+  .hero-left{align-items:center}
+  .hero-sub{justify-content:center}
+  .hero-cta{justify-content:center}
+  .hero-image-wrap{
+    width:clamp(140px,55vw,210px);
+    height:clamp(140px,55vw,210px);
+  }
+}
+
+/* SECTIONS */
 section{position:relative;z-index:1;padding:6rem 3rem}
 .section-label{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem}
 .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4rem);letter-spacing:.05em;color:var(--white);margin-bottom:3rem}
@@ -274,7 +276,7 @@ section{position:relative;z-index:1;padding:6rem 3rem}
 footer{padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.07);background:var(--navy);position:relative;z-index:1}
 footer p{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;color:var(--grey)}
 
-/* ══ HALL OF WISDOM ══ */
+/* HALL OF WISDOM */
 #page-wisdom{background:var(--navy-dark)}
 .wisdom-hero{min-height:56vh;display:flex;flex-direction:column;justify-content:flex-end;padding:9rem 3rem 5rem;position:relative;overflow:hidden}
 .wisdom-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 18% 60%,rgba(27,58,107,.5) 0%,transparent 70%),linear-gradient(180deg,var(--navy-dark) 0%,#0d1e38 100%)}
@@ -352,7 +354,7 @@ footer p{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;c
 .rr{opacity:0;transform:translateY(18px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
 .rr.vis{opacity:1;transform:translateY(0)}
 
-/* ── ANIMATIONS ── */
+/* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes scrollPulse{0%,100%{opacity:.3}50%{opacity:1}}
@@ -361,11 +363,10 @@ footer p{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;c
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* ── RESPONSIVE ── */
+/* GLOBAL RESPONSIVE */
 @media(max-width:1100px){.wisdom-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:768px){
   nav{padding:1rem 1.5rem}.nav-center{display:none}.hamburger{display:flex}
-  #hero{padding:0 1.5rem 4rem}
   section{padding:4rem 1.5rem}
   .about-grid{grid-template-columns:1fr;gap:2rem}
   .skills-grid{grid-template-columns:1fr 1fr}
@@ -461,54 +462,54 @@ footer p{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;c
   </div>
 </div>
 
-<!-- ══════════════════ PAGE: PORTFOLIO ══════════════════ -->
+<!-- PAGE: PORTFOLIO -->
 <div class="page active" id="page-portfolio">
+
 <section id="hero">
-  <div class="hero-content">
   <div class="track-lines">
     <div class="track-accent"></div>
     <div class="track-accent2"></div>
   </div>
 
+  <!-- ✅ FIXED: hero-left and hero-right are now siblings inside hero-content -->
   <div class="hero-content">
 
+    <!-- LEFT: name, tags, buttons -->
     <div class="hero-left">
-<div class="hero-left">
-      <p class="hero-eyebrow">
-        Available for Opportunities · Mechanical Engineering
-      </p>
-
+      <p class="hero-eyebrow">Available for Opportunities · Mechanical Engineering</p>
       <h1 class="hero-name">
         Sivaraman<span class="outline">R</span>
       </h1>
- <div class="hero-right">
-  </div>
-  
-<div class="hero-right">
-   <div class="hero-image-wrap">
-  <div class="hero-image-glow"></div>
+      <div class="hero-sub">
+        <span class="tag hot">Manufacturing</span>
+        <span class="tag">Production Planning & Control</span>
+        <span class="tag">Supply Chain</span>
+        <span class="tag">Tier-1 Automotive</span>
+        <span class="tag">Writer & Thinker</span>
+      </div>
+      <div class="hero-cta">
+        <a href="mailto:r.sivaraman31@gmail.com" class="btn btn-primary">Get in Touch ↗</a>
+        <a href="#experience" class="btn btn-outline">View Experience</a>
+        <a href="https://www.linkedin.com/in/siva-raman-b9645b300/" target="_blank" class="btn btn-linkedin">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
+        </a>
+      </div>
+    </div>
 
-  <img src="profile.png"
-       alt="Sivaraman R"
-       class="hero-image">
-</div>
-  <div class="hero-sub">
-    <span class="tag hot">Manufacturing</span><span class="tag">Production Planning & Control</span><span class="tag">Supply Chain</span><span class="tag">Tier-1 Automotive</span><span class="tag">Writer & Thinker</span>
-  </div>
-  <div class="hero-cta">
-    <a href="mailto:r.sivaraman31@gmail.com" class="btn btn-primary">Get in Touch ↗</a>
-    <a href="#experience" class="btn btn-outline">View Experience</a>
-    <a href="https://www.linkedin.com/in/siva-raman-b9645b300/" target="_blank" class="btn btn-linkedin">
-      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>LinkedIn
-    </a>
-  </a>
+    <!-- RIGHT: profile photo — sits to the right of text on all large screens -->
+    <div class="hero-right">
+      <div class="hero-image-wrap">
+        <div class="hero-image-glow"></div>
+        <img src="profile.png" alt="Sivaraman R" class="hero-image">
+      </div>
+    </div>
+
   </div>
 
-</div>
-
-<div class="hero-scroll">
-   <div class="hero-scroll"><span class="scroll-label">Scroll</span><div class="scroll-line"></div></div>
-</div>
+  <div class="hero-scroll">
+    <span class="scroll-label">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
 </section>
 
 <section id="about">
@@ -653,7 +654,7 @@ footer p{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;c
 <footer><p>© 2026 Sivaraman R — Mechanical Engineer</p><p>Built for opportunities. Driven by precision.</p></footer>
 </div>
 
-<!-- ══════════════════ PAGE: HALL OF WISDOM ══════════════════ -->
+<!-- PAGE: HALL OF WISDOM -->
 <div class="page" id="page-wisdom">
 <header class="wisdom-hero">
   <div class="wisdom-hero-bg"></div>
@@ -688,7 +689,6 @@ footer p{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.12em;c
 </div>
 
 <script>
-/* ── CURSOR ── */
 const cur=document.getElementById('cursor'),cr=document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;},{passive:true});
@@ -696,99 +696,73 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;},{passive:t
 function hoverBig(els,w,col){els.forEach(el=>{el.addEventListener('mouseenter',()=>{cr.style.width=w;cr.style.height=w;cr.style.borderColor=col;},{passive:true});el.addEventListener('mouseleave',()=>{cr.style.width='36px';cr.style.height='36px';cr.style.borderColor='rgba(232,69,26,0.5)';},{passive:true});});}
 hoverBig(document.querySelectorAll('a,button,.stat-card,.skill-block,.cert-card,.exp-item,.article-card'),'56px','rgba(232,69,26,0.8)');
 
-/* ── PAGE SWITCH ── */
-function showPortfolio(){
-  document.getElementById('page-portfolio').classList.add('active');
-  document.getElementById('page-wisdom').classList.remove('active');
-  document.getElementById('navLinks').style.display='';
-  document.getElementById('navBack').style.display='none';
-  document.body.style.background='var(--navy)';
-  document.title='Sivaraman R — Mechanical Engineer';
-  window.scrollTo(0,0);
-  initReveal();
-}
-function showWisdom(){
-  document.getElementById('page-portfolio').classList.remove('active');
-  document.getElementById('page-wisdom').classList.add('active');
-  document.getElementById('navLinks').style.display='none';
-  document.getElementById('navBack').style.display='';
-  document.body.style.background='var(--navy-dark)';
-  document.title='Hall of Wisdom — Sivaraman R';
-  window.scrollTo(0,0);
-  ['we','wt','wd','ws'].forEach(id=>{const el=document.getElementById(id);el.classList.remove('anim');void el.offsetWidth;el.classList.add('anim');});
-  const fb=document.getElementById('filterBar');fb.classList.remove('anim');void fb.offsetWidth;fb.classList.add('anim');
-  buildGrid();
-  setTimeout(()=>hoverBig(document.querySelectorAll('.wcard,.f-btn,.lb-close,.lb-nav-btn'),'50px','rgba(201,168,76,0.75)'),100);
-}
+function showPortfolio(){document.getElementById('page-portfolio').classList.add('active');document.getElementById('page-wisdom').classList.remove('active');document.getElementById('navLinks').style.display='';document.getElementById('navBack').style.display='none';document.body.style.background='var(--navy)';document.title='Sivaraman R — Mechanical Engineer';window.scrollTo(0,0);initReveal();}
+function showWisdom(){document.getElementById('page-portfolio').classList.remove('active');document.getElementById('page-wisdom').classList.add('active');document.getElementById('navLinks').style.display='none';document.getElementById('navBack').style.display='';document.body.style.background='var(--navy-dark)';document.title='Hall of Wisdom — Sivaraman R';window.scrollTo(0,0);['we','wt','wd','ws'].forEach(id=>{const el=document.getElementById(id);el.classList.remove('anim');void el.offsetWidth;el.classList.add('anim');});const fb=document.getElementById('filterBar');fb.classList.remove('anim');void fb.offsetWidth;fb.classList.add('anim');buildGrid();setTimeout(()=>hoverBig(document.querySelectorAll('.wcard,.f-btn,.lb-close,.lb-nav-btn'),'50px','rgba(201,168,76,0.75)'),100);}
 
-/* ── MOBILE MENU ── */
 function toggleMenu(){const m=document.getElementById('mobileMenu'),o=document.getElementById('mobileOverlay'),b=document.getElementById('hamburger');if(m.classList.contains('open')){closeMenu();}else{m.classList.add('open');o.classList.add('open');b.classList.add('open');document.body.style.overflow='hidden';}}
 function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.getElementById('mobileOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open');document.body.style.overflow='';}
 
-/* ── REVEAL ── */
 function initReveal(){const reveals=document.querySelectorAll('#page-portfolio .reveal');const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),80);obs.unobserve(e.target);}});},{threshold:0.1});reveals.forEach(el=>obs.observe(el));}
 initReveal();
 
-/* ── ARTICLES ── */
-const articles={'breaking-the-chain':{tag:'Finance · Philosophy',title:'Breaking the Chain: Redefining Generational Wealth & Purpose',readTime:'5 min read',heroBg:'linear-gradient(135deg,#0d2137 0%,#1a4a2e 100%)',heroEmoji:'🌱',heroLabel:'Finance · Philosophy · 2025',content:`<p>At 21, I find myself pondering life's big questions: Why do people fight over greed, pride, or temporary power? Why is there such a wide financial divide in society? Why do many lack the knowledge to manage money or understand history?</p><p>These questions lead me to reflect on the human condition and our choices. Societal pressures push people to chase material possessions for validation. This endless pursuit of status often comes at the cost of long-term stability — leading to stress, debt, and regret.</p><h3>The Purpose of Life & Lifelong Learning</h3><p>To me, life is about growth, contribution, and meaning. Traditional education often falls short — schools teach formulas and theories, but rarely the life skills we need most: managing emotions, making smart financial decisions, understanding history.</p><h3>My Journey as a First-Generation Graduate</h3><p>As a first-generation graduate, I carry the hopes and dreams of my family. Leaders who inspire me: <strong>Marcus Aurelius</strong> — resilience. <strong>Charlie Munger</strong> — lifelong learning. <strong>Benjamin Franklin</strong> — self-improvement. <strong>Warren Buffett</strong> — patience and long-term thinking.</p><h3>The Trap of Instant Gratification</h3><blockquote>If you're the first in your family to break generational cycles, it's essential to accept that you can't have it all at once. Success is not about flashy possessions; it's about building a strong foundation.</blockquote><h3>The Importance of Financial Literacy</h3><ul><li>Money is a tool, not the goal — use it wisely to create freedom and security.</li><li>Save and invest early — even small, consistent efforts compound over time.</li><li>Understand risks — calculated risks lead to smarter decisions.</li><li>Be disciplined — success requires repeating good habits, even when it's tough.</li></ul><blockquote>Let's grow together and create a future where knowledge, kindness, and discipline pave the way for success.</blockquote>`},'market-opportunities':{tag:'Investing · Strategy',title:'How to Unlock Market Opportunities & Steady Returns',readTime:'5 min read',heroBg:'linear-gradient(135deg,#0d2137 0%,#2a1f0a 100%)',heroEmoji:'📈',heroLabel:'Investing · Strategy · 2025',content:`<p>Many great individuals emphasize that holding stocks for the long term often outshines the volatility of short-term trading.</p><h3>Know What You Own</h3><p>Thoroughly understand the company you're investing in. Know the business model, the sector it operates in, and its long-term prospects.</p><h3>Stay Updated on News and Trends</h3><p>Stay updated on both local and international news. Changes in regulations, supply chain disruptions, or shifts in global demand can all affect stock performance.</p><h3>Understand the Bigger Picture</h3><blockquote>Instead of reacting impulsively to minor setbacks, assess the situation: Is this a temporary issue, or does it reflect deeper structural problems?</blockquote><h3>Seizing Opportunities During Downturns</h3><blockquote>"Be fearful when others are greedy and greedy when others are fearful." — Warren Buffett</blockquote><h3>Conclusion</h3><ul><li><strong>Know What You Own</strong> — thoroughly research the companies you invest in.</li><li><strong>Stay Updated</strong> — informed about global and domestic factors.</li><li><strong>Seize Downturns</strong> — recognize market overreactions.</li><li><strong>Avoid FOMO</strong> — stick to your strategy.</li></ul><blockquote>"The big money is not in the buying and selling, but in the waiting." — Charlie Munger</blockquote>`},'becoming-warren-buffett':{tag:'Leadership · Wealth',title:'Becoming Warren Buffett: Life, Wealth, Wisdom & Giving',readTime:'5 min read',heroBg:'linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%)',heroEmoji:'🦅',heroLabel:'Leadership · Wealth · 2025',content:`<p>Warren Buffett's real legacy isn't the billions he accumulated; it's the lives he impacted, the wisdom he shared, and the principles he lived by.</p><h3>A Life of Patience, Discipline & Purpose</h3><p>Buffett didn't become a billionaire overnight. He only reached that milestone at 56. His journey was never about chasing quick riches — it was about patience, discipline, and an unwavering belief in the power of compounding.</p><h3>How Buffett Evaluates a Company</h3><ul><li><strong>Quality of Management</strong> — integrity and long-term vision.</li><li><strong>Cash Flow & Profitability</strong> — consistent, strong earnings.</li><li><strong>Economic Moat</strong> — a sustainable competitive edge.</li><li><strong>Intrinsic Value</strong> — is this business worth more than its price?</li></ul><h3>Philanthropy: A Legacy of Giving Back</h3><p>Buffett has personally donated over $60 billion — more than any other individual in history, to global health, education, and women's rights.</p><blockquote>"Someone is sitting in the shade today because someone planted a tree a long time ago." — Warren Buffett</blockquote>`},'jrd-tata':{tag:'Leadership · India',title:"JRD Tata: The Visionary Who Planted Seeds of India's Progress",readTime:'11 min read',heroBg:'linear-gradient(135deg,#1a0a0a 0%,#3d1515 50%,#6b2020 100%)',heroEmoji:'🏛️',heroLabel:'Leadership · India · 2025',content:`<p>Among history's rare visionaries, one name shines like a ruby among stones — JRD Tata. A special one. One in a billion.</p><h3>A Man Who Chose India</h3><p>Born in Paris in 1904, JRD gave up his French citizenship to become a citizen of British-ruled India in 1929. It wasn't just a formality; it was a statement.</p><h3>A Vision for Nation-Building</h3><ul><li><strong>Tata Memorial Hospital</strong> — India's fight against cancer.</li><li><strong>Tata Institute of Fundamental Research</strong> — the cradle of India's atomic energy aspirations.</li><li>He established corporate India's first dedicated <strong>Human Resources Department</strong>.</li></ul><h3>The Birth of India's IT Revolution — TCS</h3><p>JRD's vision led to the creation of TCS in 1968 — India's first IT services company. Today TCS is one of the world's largest IT firms.</p><h3>The Legacy of Air India</h3><p>Air India was founded in 1932 by JRD as Tata Airlines. JRD became the first Indian to earn a pilot's license in 1929 — earning him the title <strong>Father of Indian Civil Aviation</strong>. In 2021, Air India returned to the Tata Group after nearly 70 years.</p><blockquote>"Money, like manure, loses its value when hoarded, but thrives when shared." — JRD Tata</blockquote>`},'ripple-of-hope':{tag:'Reflection · Life',title:'Ripple of Hope',readTime:'4 min read',heroBg:'linear-gradient(135deg,#0a0a1a 0%,#1a2a4a 50%,#0d3b6e 100%)',heroEmoji:'🌊',heroLabel:'Reflection · Life · 2025',content:`<p>There is discrimination in this world, as well as slavery, slaughter, and starvation. These reflect the imperfection of human justice and the inadequacy of human compassion.</p><h3>One Person Can Change the World</h3><p>Many of the world's great movements of thought and action have flowed from the work of a single person. A young man began the Protestant Reformation. The 32-year-old Thomas Jefferson proclaimed that all men are created equal. These people moved the world — and so can we.</p><blockquote>Each time a man stands up for an ideal, acts to improve the lot of others, or strikes out against injustice, he sends forth a tiny ripple of hope. These ripples, crossing each other from a million different centers of energy and daring, build a current that can sweep down the mightiest walls of oppression and resistance.</blockquote><h3>Moral Courage</h3><p>Moral courage is a rarer commodity than bravery in battle or great intelligence. Yet it is an essential, vital quality for those who seek to change a world that is ripe for change.</p><blockquote>"Some men see things as they are and say, 'Why?' I dream things that never were and say, 'Why not?'" — Robert F. Kennedy</blockquote>`}};
+const articles={'breaking-the-chain':{tag:'Finance · Philosophy',title:'Breaking the Chain: Redefining Generational Wealth & Purpose',readTime:'5 min read',heroBg:'linear-gradient(135deg,#0d2137 0%,#1a4a2e 100%)',heroEmoji:'🌱',heroLabel:'Finance · Philosophy · 2025',content:`<p>At 21, I find myself pondering life's big questions: Why do people fight over greed, pride, or temporary power? Why is there such a wide financial divide in society?</p><h3>The Purpose of Life & Lifelong Learning</h3><p>To me, life is about growth, contribution, and meaning. Traditional education often falls short — schools teach formulas and theories, but rarely the life skills we need most.</p><h3>My Journey as a First-Generation Graduate</h3><p>As a first-generation graduate, I carry the hopes and dreams of my family. Leaders who inspire me: <strong>Marcus Aurelius</strong> — resilience. <strong>Charlie Munger</strong> — lifelong learning. <strong>Warren Buffett</strong> — patience and long-term thinking.</p><h3>The Importance of Financial Literacy</h3><ul><li>Money is a tool, not the goal — use it wisely to create freedom and security.</li><li>Save and invest early — even small, consistent efforts compound over time.</li><li>Understand risks — calculated risks lead to smarter decisions.</li><li>Be disciplined — success requires repeating good habits, even when it's tough.</li></ul><blockquote>Let's grow together and create a future where knowledge, kindness, and discipline pave the way for success.</blockquote>`},'market-opportunities':{tag:'Investing · Strategy',title:'How to Unlock Market Opportunities & Steady Returns',readTime:'5 min read',heroBg:'linear-gradient(135deg,#0d2137 0%,#2a1f0a 100%)',heroEmoji:'📈',heroLabel:'Investing · Strategy · 2025',content:`<p>Many great individuals emphasize that holding stocks for the long term often outshines the volatility of short-term trading.</p><h3>Know What You Own</h3><p>Thoroughly understand the company you're investing in. Know the business model, the sector it operates in, and its long-term prospects.</p><h3>Seizing Opportunities During Downturns</h3><blockquote>Be fearful when others are greedy and greedy when others are fearful. — Warren Buffett</blockquote><ul><li><strong>Know What You Own</strong> — thoroughly research the companies you invest in.</li><li><strong>Stay Updated</strong> — informed about global and domestic factors.</li><li><strong>Avoid FOMO</strong> — stick to your strategy.</li></ul>`},'becoming-warren-buffett':{tag:'Leadership · Wealth',title:'Becoming Warren Buffett: Life, Wealth, Wisdom & Giving',readTime:'5 min read',heroBg:'linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%)',heroEmoji:'🦅',heroLabel:'Leadership · Wealth · 2025',content:`<p>Warren Buffett's real legacy isn't the billions he accumulated; it's the lives he impacted, the wisdom he shared, and the principles he lived by.</p><h3>A Life of Patience, Discipline & Purpose</h3><p>Buffett didn't become a billionaire overnight. He only reached that milestone at 56. His journey was never about chasing quick riches — it was about patience, discipline, and an unwavering belief in the power of compounding.</p><blockquote>Someone is sitting in the shade today because someone planted a tree a long time ago. — Warren Buffett</blockquote>`},'jrd-tata':{tag:'Leadership · India',title:"JRD Tata: The Visionary Who Planted Seeds of India's Progress",readTime:'11 min read',heroBg:'linear-gradient(135deg,#1a0a0a 0%,#3d1515 50%,#6b2020 100%)',heroEmoji:'🏛️',heroLabel:'Leadership · India · 2025',content:`<p>Among history's rare visionaries, one name shines like a ruby among stones — JRD Tata.</p><h3>A Man Who Chose India</h3><p>Born in Paris in 1904, JRD gave up his French citizenship to become a citizen of British-ruled India in 1929.</p><h3>The Legacy of Air India</h3><p>Air India was founded in 1932 by JRD as Tata Airlines. JRD became the first Indian to earn a pilot's license in 1929 — earning him the title <strong>Father of Indian Civil Aviation</strong>.</p><blockquote>Money, like manure, loses its value when hoarded, but thrives when shared. — JRD Tata</blockquote>`},'ripple-of-hope':{tag:'Reflection · Life',title:'Ripple of Hope',readTime:'4 min read',heroBg:'linear-gradient(135deg,#0a0a1a 0%,#1a2a4a 50%,#0d3b6e 100%)',heroEmoji:'🌊',heroLabel:'Reflection · Life · 2025',content:`<p>There is discrimination in this world, as well as slavery, slaughter, and starvation. These reflect the imperfection of human justice and the inadequacy of human compassion.</p><h3>One Person Can Change the World</h3><p>Many of the world's great movements of thought and action have flowed from the work of a single person.</p><h3>Moral Courage</h3><p>Moral courage is a rarer commodity than bravery in battle or great intelligence. Yet it is an essential, vital quality for those who seek to change a world that is ripe for change.</p>`}};
 function openArticle(id){const a=articles[id];if(!a)return;document.getElementById('modalHero').style.background=a.heroBg;document.getElementById('modalHero').innerHTML=`<span style="font-size:5rem">${a.heroEmoji}</span><span class="article-modal-hero-label">${a.heroLabel}</span>`;document.getElementById('modalTag').textContent=a.tag;document.getElementById('modalTitle').textContent=a.title;document.getElementById('modalContent').innerHTML=a.content;document.getElementById('modalReadTime').textContent=a.readTime;document.getElementById('articleModal').classList.add('open');document.body.style.overflow='hidden';}
 function closeArticle(e){if(e.target===document.getElementById('articleModal'))closeArticleBtn();}
 function closeArticleBtn(){document.getElementById('articleModal').classList.remove('open');document.body.style.overflow='';}
 
-/* ── WISDOM DATA ── */
 const CAT={business:'Business',science:'Science',politics:'Politics',cinema:'Cinema',india:'India',philosophy:'Philosophy'};
 const F=[
 {name:"J.R.D. Tata",era:"1904–1993",cats:["business","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/JRD_Tata.jpg/400px-JRD_Tata.jpg",lesson:"Built 80+ companies while treating workers as humans, not cogs. Gave up French citizenship for British-ruled India. Proved business can be nation-building at the highest level.",quote:"Money, like manure, loses its value when hoarded, but thrives when shared."},
 {name:"Charlie Munger",era:"1924–2023",cats:["business","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Charlie_Munger.jpg/400px-Charlie_Munger.jpg",lesson:"Master of mental models. Read voraciously until his final days at 99 with one functional eye. Breadth of knowledge across many disciplines is the true competitive edge.",quote:"The best thing a human being can do is help another human being know more."},
 {name:"Warren Buffett",era:"1930–present",cats:["business","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Warren_Buffett_KU_Visit.jpg/400px-Warren_Buffett_KU_Visit.jpg",lesson:"Became a billionaire at 56. Patience as a superpower. Donated over $60B. Showed that integrity and enormous wealth are not opposites — they reinforce each other.",quote:"Someone is sitting in the shade today because someone planted a tree a long time ago."},
 {name:"Martin Luther King Jr.",era:"1929–1968",cats:["politics","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Martin_Luther_King%2C_Jr..jpg/400px-Martin_Luther_King%2C_Jr..jpg",lesson:"Moral courage above all. Injustice anywhere is a threat to justice everywhere. Showed the world that love is the most powerful political force ever assembled.",quote:"Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can."},
-{name:"Dr. B.R. Ambedkar",era:"1891–1956",cats:["politics","india","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Dr._Bhimrao_Ambedkar.jpg/400px-Dr._Bhimrao_Ambedkar.jpg",lesson:"Rose from the most marginalized position in Indian society to architect India's Constitution. The ultimate proof that education is liberation and origin never dictates destiny.",quote:"I measure the progress of a community by the degree of progress which women have achieved."},
-{name:"Ayrton Senna",era:"1960–1994",cats:["philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Ayrton_Senna_1991_Canada.jpg/400px-Ayrton_Senna_1991_Canada.jpg",lesson:"Absolute commitment at the absolute limit. He didn't just drive fast — he transcended what a human being could do. Mastery requires pushing into the completely unknown.",quote:"And so you touch this limit, something happens and you suddenly can go a little bit further — with your mind, your determination, your instinct."},
-{name:"Jamie Dimon",era:"1956–present",cats:["business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Jamie_Dimon_by_Stuart_Isett%2C_Fortune_Most_Powerful_Women_2012.jpg/400px-Jamie_Dimon_by_Stuart_Isett%2C_Fortune_Most_Powerful_Women_2012.jpg",lesson:"Steady hand in a storm. His leadership through the 2008 financial crisis proves that calm, decisive, systematic thinking beats panic every single time.",quote:"The market is always noisy. Separate the short-term noise from the long-term signal."},
-{name:"Akio Morita",era:"1921–1999",cats:["business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Akio_Morita.jpg/400px-Akio_Morita.jpg",lesson:"Co-founded Sony from post-war rubble. Consumers don't know what they want — visionaries have to show them. The Walkman was rejected internally before it changed the world.",quote:"Don't be afraid to make a mistake. But make sure you don't make the same mistake twice."},
-{name:"Steve Jobs",era:"1955–2011",cats:["business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg/400px-Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg",lesson:"The intersection of art and technology. Never settle for good enough — insane standards create insane products. The gap between A and A+ is where greatness lives.",quote:"Stay hungry. Stay foolish."},
-{name:"Bill Gates",era:"1955–present",cats:["business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Bill_Gates_2017_%28cropped%29.jpg/400px-Bill_Gates_2017_%28cropped%29.jpg",lesson:"Original software visionary who reinvented himself as the world's greatest public health philanthropist. Growth has no ceiling if you stay endlessly curious.",quote:"It's fine to celebrate success, but it is more important to heed the lessons of failure."},
-{name:"Elon Musk",era:"1971–present",cats:["business","science"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28cropped%29.jpg/400px-Elon_Musk_Royal_Society_%28cropped%29.jpg",lesson:"First-principles thinking applied to rockets, cars, and energy. Question every assumption. What others call impossible is often just unexplored and underinvested.",quote:"When something is important enough, you do it even if the odds are not in your favor."},
+{name:"Dr. B.R. Ambedkar",era:"1891–1956",cats:["politics","india","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Dr._Bhimrao_Ambedkar.jpg/400px-Dr._Bhimrao_Ambedkar.jpg",lesson:"Rose from the most marginalized position in Indian society to architect India's Constitution. The ultimate proof that education is liberation.",quote:"I measure the progress of a community by the degree of progress which women have achieved."},
+{name:"Ayrton Senna",era:"1960–1994",cats:["philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Ayrton_Senna_1991_Canada.jpg/400px-Ayrton_Senna_1991_Canada.jpg",lesson:"Absolute commitment at the absolute limit. Mastery requires pushing into the completely unknown.",quote:"And so you touch this limit, something happens and you suddenly can go a little bit further."},
+{name:"Steve Jobs",era:"1955–2011",cats:["business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg/400px-Steve_Jobs_Headshot_2010-CROP_%28cropped_2%29.jpg",lesson:"The intersection of art and technology. Never settle for good enough — insane standards create insane products.",quote:"Stay hungry. Stay foolish."},
+{name:"Elon Musk",era:"1971–present",cats:["business","science"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28cropped%29.jpg/400px-Elon_Musk_Royal_Society_%28cropped%29.jpg",lesson:"First-principles thinking applied to rockets, cars, and energy. Question every assumption.",quote:"When something is important enough, you do it even if the odds are not in your favor."},
 {name:"M. Karunanidhi",era:"1924–2018",cats:["politics","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Kalaignar_M_Karunanidhi.jpg/400px-Kalaignar_M_Karunanidhi.jpg",lesson:"Writer, politician, filmmaker, linguist — all at once across nine decades. Showed that Tamil identity, social justice, and modernity are not in opposition.",quote:"தமிழுக்கு அமுதென்று பேர் — Tamil is called nectar, sweet as ambrosia."},
-{name:"P. Kakkan",era:"1902–1981",cats:["politics","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/P_Kakkan.jpg/400px-P_Kakkan.jpg",lesson:"Served the marginalized with quiet dignity for decades. A reminder that real leadership is service without spectacle, without personal ambition, without noise.",quote:"Work for the poor, and the poor will make you immortal."},
-{name:"K. Kamaraj",era:"1903–1975",cats:["politics","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Kumaraswami_Kamaraj.jpg/400px-Kumaraswami_Kamaraj.jpg",lesson:"The Kingmaker who refused kingship. Introduced the Midday Meal scheme, built schools, wore simple khadi. Power used entirely, completely, purely for others.",quote:"I have no family, no property, no home. Tamil Nadu is my home; its people are my family."},
-{name:"Dr. Manmohan Singh",era:"1932–2024",cats:["politics","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Manmohan_Singh_portrait.jpg/400px-Manmohan_Singh_portrait.jpg",lesson:"The quiet revolution. Opened India's economy with calm resolve in 1991. Proved that humility and competence are the rarest and most powerful combination in leadership.",quote:"History will be kinder to me than the present."},
-{name:"Peter Lynch",era:"1944–present",cats:["business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Peter_Lynch.jpg/400px-Peter_Lynch.jpg",lesson:"Invest in what you understand. The ordinary person often spots 10-baggers before Wall Street does. Common sense is an uncommon and underrated superpower in markets.",quote:"Go for a business that any idiot can run — because sooner or later, any idiot probably is going to run it."},
-{name:"Azim Premji",era:"1945–present",cats:["business","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Azim_premji.jpg/400px-Azim_premji.jpg",lesson:"Gave away the vast majority of his $21B fortune to education in India. Proved that a business can be globally competitive and deeply ethical — simultaneously.",quote:"The quality of a leader is reflected in the standards they set for themselves."},
-{name:"Ratan N. Tata",era:"1937–2024",cats:["business","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Ratan_Tata_2012_%28cropped%29.jpg/400px-Ratan_Tata_2012_%28cropped%29.jpg",lesson:"Led with humility and boldness simultaneously. Acquired Jaguar, Corus, Tetley. Then gave nearly everything back to society. India's most loved industrialist for exactly these reasons.",quote:"I don't believe in taking right decisions. I take decisions and then make them right."},
-{name:"Jamsetji Tata",era:"1839–1904",cats:["business","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Jamsetji_Tata.jpg/400px-Jamsetji_Tata.jpg",lesson:"Founded Tata Steel and IISc before India was free. Proved that industrialization and profound social responsibility must go together from the very first day.",quote:"In a free enterprise, the community is not just another stakeholder, but the very purpose of its existence."},
-{name:"Bertha Benz",era:"1849–1944",cats:["science","business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Bertha_Benz_portrait.jpg/400px-Bertha_Benz_portrait.jpg",lesson:"Drove the world's first long-distance automobile journey alone, with her sons, without telling her husband. She proved the car worked when nobody else in the world would.",quote:"The automobile must be proven to the world — and I will be the one to prove it."},
-{name:"Karl Benz",era:"1844–1929",cats:["science"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Carl_Benz.jpg/400px-Carl_Benz.jpg",lesson:"Invented the automobile. A singular, relentless obsession with a machine that would permanently reshape all of human civilization. One idea, executed without stopping.",quote:"The love of invention never leaves an inventor, even when he is unrecognized and unrewarded."},
-{name:"Hans Wilsdorf",era:"1881–1960",cats:["business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Hans_Wilsdorf.jpg/400px-Hans_Wilsdorf.jpg",lesson:"Founded Rolex from nothing. Turned the wristwatch from a fragile novelty into a global symbol of precision, prestige, and human aspiration. Branding as a form of engineering.",quote:"A Rolex is not just bought — it is earned."},
-{name:"Dr. Jonas Salk",era:"1914–1995",cats:["science"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Jonas_Salk.jpg/400px-Jonas_Salk.jpg",lesson:"Developed the polio vaccine and refused to patent it — giving it freely to all of humanity. When asked who owned the patent, he replied: 'Could you patent the sun?'",quote:"Hope lies in dreams, in imagination, and in the courage of those who dare to make dreams into reality."},
-{name:"Sir Frederick Banting",era:"1891–1941",cats:["science"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Frederick_Banting_-_restored.jpg/400px-Frederick_Banting_-_restored.jpg",lesson:"Discovered insulin and sold the patent for $1 so every diabetic in the world could afford treatment. Science in complete, uncompromising service of humanity — not profit.",quote:"Insulin is not a cure for diabetes. It is a treatment — but it enables diabetics to live full lives."},
-{name:"A.P.J. Abdul Kalam",era:"1931–2015",cats:["science","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/A._P._J._Abdul_Kalam.jpg/400px-A._P._J._Abdul_Kalam.jpg",lesson:"Son of a fisherman in Rameswaram who guided India's missiles to the stars and became the People's President. The most inspiring proof that origin never dictates destiny.",quote:"Dream is not that which you see while sleeping; it is something that does not let you sleep."},
-{name:"Satish Dhawan",era:"1920–2002",cats:["science","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Satish_Dhawan.jpg/400px-Satish_Dhawan.jpg",lesson:"After a rocket failure, he stood before the press and took full responsibility. When the next launch succeeded, he gave all credit to his team. That is the definition of leadership.",quote:"Success has many fathers; failure is an orphan. I prefer to be the orphan's guardian."},
-{name:"Vikram Sarabhai",era:"1919–1971",cats:["science","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Vikram_Sarabhai.jpg/400px-Vikram_Sarabhai.jpg",lesson:"Founded ISRO with a clear belief: a developing nation needs space science not for prestige, but to solve its people's real problems — communication, weather, agriculture.",quote:"There are no second thoughts about the relevance, the timeliness, or the importance of space research in India."},
-{name:"John F. Kennedy",era:"1917–1963",cats:["politics"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg/400px-John_F._Kennedy%2C_White_House_color_photo_portrait.jpg",lesson:"Dared to say 'we choose to go to the moon — not because it is easy, but because it is hard.' Vision at national scale. Optimism as a governing philosophy and way of life.",quote:"Ask not what your country can do for you — ask what you can do for your country."},
-{name:"Robert F. Kennedy",era:"1925–1968",cats:["politics","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/RFK_in_front_of_the_Cesar_Chavez_Mural.jpg/400px-RFK_in_front_of_the_Cesar_Chavez_Mural.jpg",lesson:"Each ripple of hope matters. Moral courage — the willingness to face disapproval for an ideal — is rarer than intelligence or bravery in battle. He had it completely.",quote:"Some men see things as they are and say 'Why?' I dream things that never were and say 'Why not?'"},
-{name:"Abraham Lincoln",era:"1809–1865",cats:["politics","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg/400px-Abraham_Lincoln_O-77_matte_collodion_print.jpg",lesson:"Failed repeatedly before the presidency. Held a fractured nation together through its bloodiest war with extraordinary grace, patience, and wit. Resilience personified.",quote:"Give me six hours to chop down a tree and I will spend the first four sharpening the axe."},
-{name:"Ronald Reagan",era:"1911–2004",cats:["politics"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Official_Portrait_of_President_Reagan_1981.jpg/400px-Official_Portrait_of_President_Reagan_1981.jpg",lesson:"The Great Communicator. Proved that optimism, clarity, and unshakeable conviction can move entire nations. Vision combined with communication equals transformation.",quote:"The greatest leader is not the one who does the greatest things. He is the one who gets the people to do the greatest things."},
-{name:"Franklin D. Roosevelt",era:"1882–1945",cats:["politics"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/FDR_1944_Color_Portrait.jpg/400px-FDR_1944_Color_Portrait.jpg",lesson:"Led from a wheelchair through the Great Depression and World War II simultaneously. The only thing we have to fear is fear itself — and he proved it with the way he lived.",quote:"The only thing we have to fear is fear itself."},
-{name:"Thomas Jefferson",era:"1743–1826",cats:["politics","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Official_Presidential_portrait_of_Thomas_Jefferson_%28by_Rembrandt_Peale%2C_1800%29%28cropped%29.jpg/400px-Official_Presidential_portrait_of_Thomas_Jefferson_%28by_Rembrandt_Peale%2C_1800%29%28cropped%29.jpg",lesson:"Wrote 'all men are created equal' at 32, before the world was remotely ready for it. Articulating a principle ahead of its time can change the entire arc of history.",quote:"I cannot live without books. The reading of fine print on ancient paper is the cheapest of all luxuries."},
-{name:"Walt Disney",era:"1901–1966",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Walt_Disney_1946.JPG/400px-Walt_Disney_1946.JPG",lesson:"Rejected 302 times before his first bank loan. Built a kingdom on pure, uncompromising imagination. Every dream begins with exactly one believer — and that believer must be you.",quote:"All our dreams can come true, if we have the courage to pursue them."},
-{name:"Warner Brothers",era:"Est. 1923",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Warner_Bros_logo.svg/400px-Warner_Bros_logo.svg.png",lesson:"Four immigrant brothers who bet everything on 'The Jazz Singer' and gave the world talking pictures. Outsiders who permanently changed an industry from the outside.",quote:"It is our choices that show what we truly are, far more than our abilities."},
-{name:"Satyajit Ray",era:"1921–1992",cats:["cinema","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Satyajit_Ray_in_his_later_years.jpg/400px-Satyajit_Ray_in_his_later_years.jpg",lesson:"Made Pather Panchali with borrowed money and pawned jewelry. Proved that world-class cinema can emerge from anywhere when truth and human observation are the priority.",quote:"The true filmmaker must have the courage to express the truth of his own soul, however uncomfortable."},
-{name:"Martin Scorsese",era:"1942–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Martin_Scorsese_2010.jpg/400px-Martin_Scorsese_2010.jpg",lesson:"Cinema as moral examination. Every single frame intentional. The artist who never stopped studying — from silent films to streaming. A living argument for preservation as love.",quote:"Cinema is a matter of what's in the frame and what's out."},
-{name:"Quentin Tarantino",era:"1963–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Quentin_Tarantino_by_Gage_Skidmore.jpg/400px-Quentin_Tarantino_by_Gage_Skidmore.jpg",lesson:"Video store clerk who became a cinematic legend. Deep immersion in film history is his superpower. You cannot create from nothing — you create from everything you've absorbed.",quote:"I steal from every single movie ever made. Great artists steal; they don't do homage."},
-{name:"Steven Spielberg",era:"1946–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Steven_Spielberg_by_Gage_Skidmore.jpg/400px-Steven_Spielberg_by_Gage_Skidmore.jpg",lesson:"The most commercially successful director in history who never lost childlike wonder. Schindler's List proves entertainment and profound art are not opposites — they reinforce each other.",quote:"Every time I go to a movie, it's magic, no matter what the movie's about."},
-{name:"Christopher Nolan",era:"1970–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Christopher_Nolan_Cannes_2018.jpg/400px-Christopher_Nolan_Cannes_2018.jpg",lesson:"Made blockbusters that genuinely demand intelligence from their audiences. Proved that high ambition and enormous commercial success can coexist without compromise.",quote:"I've always believed that if you make a film that you personally find interesting, you will find your audience."},
-{name:"James Cameron",era:"1954–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/James_Cameron_TIFF_2010.jpg/400px-James_Cameron_TIFF_2010.jpg",lesson:"Went 40% over budget on Titanic. Gambled absolutely everything. Won the biggest prize in cinema history. Audacity backed by relentless craft is eventually — always — rewarded.",quote:"If you set your goals ridiculously high and it's a failure, you will fail above everyone else's success."},
-{name:"Clint Eastwood",era:"1930–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/ClintEastwoodMarch09.jpg/400px-ClintEastwoodMarch09.jpg",lesson:"The quiet man who showed that minimalism is power. Restraint and presence over noise and spectacle. A work ethic that outlasted every trend and generation around him.",quote:"Respect your efforts, respect yourself. Self-respect leads to self-discipline. When you have both, that's real power."},
-{name:"Daniel Craig",era:"1968–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Daniel_Craig_at_the_Tribeca_Film_Festival.jpg/400px-Daniel_Craig_at_the_Tribeca_Film_Festival.jpg",lesson:"Faced intense public hatred when cast as Bond. Reinvented the character completely through sheer commitment and vulnerability. Transformation always requires ignoring the crowd.",quote:"I think it's important to know where you came from in order to know where you're going."},
-{name:"Chadwick Boseman",era:"1976–2020",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Chadwick_Boseman_filming_a_PSA_for_the_28th_Annual_A_Capitol_Fourth%2C_cropped.jpg/400px-Chadwick_Boseman_filming_a_PSA_for_the_28th_Annual_A_Capitol_Fourth%2C_cropped.jpg",lesson:"Filmed Black Panther, Da 5 Bloods, and Ma Rainey's Black Bottom while secretly battling stage 4 colon cancer. Purpose over pain. Legacy over comfort. Every single day.",quote:"You have to cherish things in a different way when you know the clock is ticking."},
-{name:"The Buddha",era:"c. 563–483 BCE",cats:["philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Siddharth.jpg/400px-Siddharth.jpg",lesson:"Left a palace and every comfort to understand suffering. Taught that peace comes from within, not from accumulation. The untrained mind suffers; the trained mind is free.",quote:"Peace comes from within. Do not seek it without. The mind is everything. What you think, you become."},
-{name:"Ardeshir Godrej",era:"1868–1936",cats:["business","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ardeshir_Burjorji_Godrej.jpg/400px-Ardeshir_Burjorji_Godrej.jpg",lesson:"Built India's first swadeshi lock company after failing as a lawyer. Built a dynasty on Indian craftsmanship, honesty, and the patient accumulation of trust.",quote:"Quality is not an act, it is a habit. Build trust first; profit will follow every time."},
-{name:"G.D. Birla",era:"1894–1983",cats:["business","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/GDbirla.jpg/400px-GDbirla.jpg",lesson:"Gandhi's closest industrialist ally. Funded the independence movement. Proved that enormous business wealth and dedicated national service can share exactly the same soul.",quote:"Accumulation of wealth for its own sake is sin. Wealth is always a means, never an end."},
-{name:"Dwight D. Eisenhower",era:"1890–1969",cats:["politics"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959.jpg/400px-Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959.jpg",lesson:"Planned D-Day. Led NATO. Built America's interstate highway system. The Eisenhower Matrix — urgency versus importance — is named for him. True strategy over busyness.",quote:"What is important is seldom urgent, and what is urgent is seldom important."},
-{name:"Nelson Mandela",era:"1918–2013",cats:["politics","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Nelson_Mandela_1994.jpg/400px-Nelson_Mandela_1994.jpg",lesson:"27 years imprisoned. Walked out without bitterness and built a reconciled nation from the wreckage of apartheid. The greatest single leadership lesson of the entire 20th century.",quote:"It always seems impossible until it's done."},
-{name:"Carl Sagan",era:"1934–1996",cats:["science","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Carl_Sagan_Planetary_Society.JPG/400px-Carl_Sagan_Planetary_Society.JPG",lesson:"Made the entire cosmos feel deeply personal. We are made of star stuff. Showed that science is the most poetic, humbling, and wonder-inducing activity humanity has ever undertaken.",quote:"We are a way for the cosmos to know itself. In the vast cosmic arena, we are rare and precious."},
-{name:"Richard Feynman",era:"1918–1988",cats:["science","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/RichardFeynman-PaineMansionWoods1984_copyrightTamikoThiel_bw.jpg/400px-RichardFeynman-PaineMansionWoods1984_copyrightTamikoThiel_bw.jpg",lesson:"The greatest physics teacher who ever lived. If you can't explain it simply, you don't understand it. Curiosity is sacred. Never, ever stop asking 'but why, really?'",quote:"I would rather have questions that can't be answered than answers that can't be questioned."}
+{name:"K. Kamaraj",era:"1903–1975",cats:["politics","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Kumaraswami_Kamaraj.jpg/400px-Kumaraswami_Kamaraj.jpg",lesson:"The Kingmaker who refused kingship. Power used entirely, completely, purely for others.",quote:"I have no family, no property, no home. Tamil Nadu is my home; its people are my family."},
+{name:"Dr. Manmohan Singh",era:"1932–2024",cats:["politics","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Manmohan_Singh_portrait.jpg/400px-Manmohan_Singh_portrait.jpg",lesson:"The quiet revolution. Opened India's economy with calm resolve in 1991. Proved that humility and competence are the rarest combination in leadership.",quote:"History will be kinder to me than the present."},
+{name:"Ratan N. Tata",era:"1937–2024",cats:["business","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Ratan_Tata_2012_%28cropped%29.jpg/400px-Ratan_Tata_2012_%28cropped%29.jpg",lesson:"Led with humility and boldness simultaneously. Then gave nearly everything back to society.",quote:"I don't believe in taking right decisions. I take decisions and then make them right."},
+{name:"A.P.J. Abdul Kalam",era:"1931–2015",cats:["science","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/A._P._J._Abdul_Kalam.jpg/400px-A._P._J._Abdul_Kalam.jpg",lesson:"Son of a fisherman who guided India's missiles to the stars. The most inspiring proof that origin never dictates destiny.",quote:"Dream is not that which you see while sleeping; it is something that does not let you sleep."},
+{name:"Vikram Sarabhai",era:"1919–1971",cats:["science","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Vikram_Sarabhai.jpg/400px-Vikram_Sarabhai.jpg",lesson:"Founded ISRO with a clear belief: a developing nation needs space science to solve its people's real problems.",quote:"There are no second thoughts about the relevance, the timeliness, or the importance of space research in India."},
+{name:"John F. Kennedy",era:"1917–1963",cats:["politics"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/John_F._Kennedy%2C_White_House_color_photo_portrait.jpg/400px-John_F._Kennedy%2C_White_House_color_photo_portrait.jpg",lesson:"Dared to say we choose to go to the moon — not because it is easy, but because it is hard.",quote:"Ask not what your country can do for you — ask what you can do for your country."},
+{name:"Nelson Mandela",era:"1918–2013",cats:["politics","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Nelson_Mandela_1994.jpg/400px-Nelson_Mandela_1994.jpg",lesson:"27 years imprisoned. Walked out without bitterness and built a reconciled nation. The greatest leadership lesson of the 20th century.",quote:"It always seems impossible until it's done."},
+{name:"Abraham Lincoln",era:"1809–1865",cats:["politics","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Abraham_Lincoln_O-77_matte_collodion_print.jpg/400px-Abraham_Lincoln_O-77_matte_collodion_print.jpg",lesson:"Failed repeatedly before the presidency. Held a fractured nation together with extraordinary grace, patience, and wit.",quote:"Give me six hours to chop down a tree and I will spend the first four sharpening the axe."},
+{name:"Walt Disney",era:"1901–1966",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Walt_Disney_1946.JPG/400px-Walt_Disney_1946.JPG",lesson:"Rejected 302 times before his first bank loan. Built a kingdom on pure, uncompromising imagination.",quote:"All our dreams can come true, if we have the courage to pursue them."},
+{name:"Satyajit Ray",era:"1921–1992",cats:["cinema","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Satyajit_Ray_in_his_later_years.jpg/400px-Satyajit_Ray_in_his_later_years.jpg",lesson:"Made Pather Panchali with borrowed money. Proved that world-class cinema can emerge from anywhere.",quote:"The true filmmaker must have the courage to express the truth of his own soul."},
+{name:"Christopher Nolan",era:"1970–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Christopher_Nolan_Cannes_2018.jpg/400px-Christopher_Nolan_Cannes_2018.jpg",lesson:"Made blockbusters that genuinely demand intelligence from their audiences.",quote:"I've always believed that if you make a film that you personally find interesting, you will find your audience."},
+{name:"Chadwick Boseman",era:"1976–2020",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Chadwick_Boseman_filming_a_PSA_for_the_28th_Annual_A_Capitol_Fourth%2C_cropped.jpg/400px-Chadwick_Boseman_filming_a_PSA_for_the_28th_Annual_A_Capitol_Fourth%2C_cropped.jpg",lesson:"Filmed Black Panther while secretly battling stage 4 colon cancer. Purpose over pain. Legacy over comfort.",quote:"You have to cherish things in a different way when you know the clock is ticking."},
+{name:"The Buddha",era:"c. 563–483 BCE",cats:["philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Siddharth.jpg/400px-Siddharth.jpg",lesson:"Left a palace and every comfort to understand suffering. The untrained mind suffers; the trained mind is free.",quote:"Peace comes from within. Do not seek it without. The mind is everything. What you think, you become."},
+{name:"Carl Sagan",era:"1934–1996",cats:["science","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Carl_Sagan_Planetary_Society.JPG/400px-Carl_Sagan_Planetary_Society.JPG",lesson:"Made the entire cosmos feel deeply personal. Science is the most poetic, humbling activity humanity has ever undertaken.",quote:"We are a way for the cosmos to know itself."},
+{name:"Richard Feynman",era:"1918–1988",cats:["science","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/RichardFeynman-PaineMansionWoods1984_copyrightTamikoThiel_bw.jpg/400px-RichardFeynman-PaineMansionWoods1984_copyrightTamikoThiel_bw.jpg",lesson:"The greatest physics teacher who ever lived. If you can't explain it simply, you don't understand it.",quote:"I would rather have questions that can't be answered than answers that can't be questioned."},
+{name:"Azim Premji",era:"1945–present",cats:["business","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Azim_premji.jpg/400px-Azim_premji.jpg",lesson:"Gave away the majority of his $21B fortune to education in India. Business can be globally competitive and deeply ethical simultaneously.",quote:"The quality of a leader is reflected in the standards they set for themselves."},
+{name:"Jamsetji Tata",era:"1839–1904",cats:["business","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Jamsetji_Tata.jpg/400px-Jamsetji_Tata.jpg",lesson:"Founded Tata Steel and IISc before India was free. Industrialization and social responsibility must go together.",quote:"In a free enterprise, the community is not just another stakeholder, but the very purpose of its existence."},
+{name:"Bertha Benz",era:"1849–1944",cats:["science","business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Bertha_Benz_portrait.jpg/400px-Bertha_Benz_portrait.jpg",lesson:"Drove the world's first long-distance automobile journey alone. She proved the car worked when nobody else would.",quote:"The automobile must be proven to the world — and I will be the one to prove it."},
+{name:"Karl Benz",era:"1844–1929",cats:["science"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Carl_Benz.jpg/400px-Carl_Benz.jpg",lesson:"Invented the automobile. A singular, relentless obsession with a machine that permanently reshaped civilization.",quote:"The love of invention never leaves an inventor, even when he is unrecognized and unrewarded."},
+{name:"Dr. Jonas Salk",era:"1914–1995",cats:["science"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Jonas_Salk.jpg/400px-Jonas_Salk.jpg",lesson:"Developed the polio vaccine and refused to patent it — giving it freely to all humanity.",quote:"Hope lies in dreams, in imagination, and in the courage of those who dare to make dreams into reality."},
+{name:"Peter Lynch",era:"1944–present",cats:["business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Peter_Lynch.jpg/400px-Peter_Lynch.jpg",lesson:"Invest in what you understand. Common sense is an uncommon and underrated superpower in markets.",quote:"Go for a business that any idiot can run — because sooner or later, any idiot probably is going to run it."},
+{name:"Robert F. Kennedy",era:"1925–1968",cats:["politics","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/RFK_in_front_of_the_Cesar_Chavez_Mural.jpg/400px-RFK_in_front_of_the_Cesar_Chavez_Mural.jpg",lesson:"Each ripple of hope matters. Moral courage is rarer than intelligence or bravery in battle.",quote:"Some men see things as they are and say 'Why?' I dream things that never were and say 'Why not?'"},
+{name:"Franklin D. Roosevelt",era:"1882–1945",cats:["politics"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/FDR_1944_Color_Portrait.jpg/400px-FDR_1944_Color_Portrait.jpg",lesson:"Led from a wheelchair through the Great Depression and World War II simultaneously.",quote:"The only thing we have to fear is fear itself."},
+{name:"Dwight D. Eisenhower",era:"1890–1969",cats:["politics"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959.jpg/400px-Dwight_D._Eisenhower%2C_official_photo_portrait%2C_May_29%2C_1959.jpg",lesson:"Planned D-Day. Built America's interstate highway system. True strategy over busyness.",quote:"What is important is seldom urgent, and what is urgent is seldom important."},
+{name:"Steven Spielberg",era:"1946–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Steven_Spielberg_by_Gage_Skidmore.jpg/400px-Steven_Spielberg_by_Gage_Skidmore.jpg",lesson:"The most commercially successful director who never lost childlike wonder.",quote:"Every time I go to a movie, it's magic, no matter what the movie's about."},
+{name:"James Cameron",era:"1954–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/James_Cameron_TIFF_2010.jpg/400px-James_Cameron_TIFF_2010.jpg",lesson:"Went 40% over budget on Titanic. Gambled everything. Audacity backed by relentless craft is always rewarded.",quote:"If you set your goals ridiculously high and it's a failure, you will fail above everyone else's success."},
+{name:"Martin Scorsese",era:"1942–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Martin_Scorsese_2010.jpg/400px-Martin_Scorsese_2010.jpg",lesson:"Cinema as moral examination. Every single frame intentional. A living argument for preservation as love.",quote:"Cinema is a matter of what's in the frame and what's out."},
+{name:"Clint Eastwood",era:"1930–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/ClintEastwoodMarch09.jpg/400px-ClintEastwoodMarch09.jpg",lesson:"The quiet man who showed that minimalism is power. A work ethic that outlasted every trend.",quote:"Respect your efforts, respect yourself. Self-respect leads to self-discipline."},
+{name:"Satish Dhawan",era:"1920–2002",cats:["science","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Satish_Dhawan.jpg/400px-Satish_Dhawan.jpg",lesson:"After a rocket failure, took full responsibility. When next launch succeeded, gave all credit to his team.",quote:"Success has many fathers; failure is an orphan. I prefer to be the orphan's guardian."},
+{name:"Bill Gates",era:"1955–present",cats:["business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Bill_Gates_2017_%28cropped%29.jpg/400px-Bill_Gates_2017_%28cropped%29.jpg",lesson:"Original software visionary who reinvented himself as the world's greatest public health philanthropist.",quote:"It's fine to celebrate success, but it is more important to heed the lessons of failure."},
+{name:"Akio Morita",era:"1921–1999",cats:["business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Akio_Morita.jpg/400px-Akio_Morita.jpg",lesson:"Co-founded Sony from post-war rubble. The Walkman was rejected internally before it changed the world.",quote:"Don't be afraid to make a mistake. But make sure you don't make the same mistake twice."},
+{name:"Hans Wilsdorf",era:"1881–1960",cats:["business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Hans_Wilsdorf.jpg/400px-Hans_Wilsdorf.jpg",lesson:"Founded Rolex from nothing. Turned the wristwatch from a fragile novelty into a global symbol.",quote:"A Rolex is not just bought — it is earned."},
+{name:"Jamie Dimon",era:"1956–present",cats:["business"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Jamie_Dimon_by_Stuart_Isett%2C_Fortune_Most_Powerful_Women_2012.jpg/400px-Jamie_Dimon_by_Stuart_Isett%2C_Fortune_Most_Powerful_Women_2012.jpg",lesson:"Steady hand in a storm. Calm, decisive thinking beats panic every single time.",quote:"The market is always noisy. Separate the short-term noise from the long-term signal."},
+{name:"G.D. Birla",era:"1894–1983",cats:["business","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/GDbirla.jpg/400px-GDbirla.jpg",lesson:"Gandhi's closest industrialist ally. Proved that enormous business wealth and national service can share the same soul.",quote:"Accumulation of wealth for its own sake is sin. Wealth is always a means, never an end."},
+{name:"Ardeshir Godrej",era:"1868–1936",cats:["business","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Ardeshir_Burjorji_Godrej.jpg/400px-Ardeshir_Burjorji_Godrej.jpg",lesson:"Built India's first swadeshi lock company after failing as a lawyer. A dynasty built on honesty and trust.",quote:"Quality is not an act, it is a habit. Build trust first; profit will follow every time."},
+{name:"Thomas Jefferson",era:"1743–1826",cats:["politics","philosophy"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Official_Presidential_portrait_of_Thomas_Jefferson_%28by_Rembrandt_Peale%2C_1800%29%28cropped%29.jpg/400px-Official_Presidential_portrait_of_Thomas_Jefferson_%28by_Rembrandt_Peale%2C_1800%29%28cropped%29.jpg",lesson:"Wrote 'all men are created equal' at 32, before the world was remotely ready for it.",quote:"I cannot live without books."},
+{name:"Ronald Reagan",era:"1911–2004",cats:["politics"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Official_Portrait_of_President_Reagan_1981.jpg/400px-Official_Portrait_of_President_Reagan_1981.jpg",lesson:"The Great Communicator. Optimism, clarity, and conviction can move entire nations.",quote:"The greatest leader is not the one who does the greatest things. He is the one who gets the people to do the greatest things."},
+{name:"P. Kakkan",era:"1902–1981",cats:["politics","india"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/P_Kakkan.jpg/400px-P_Kakkan.jpg",lesson:"Served the marginalized with quiet dignity. Real leadership is service without spectacle.",quote:"Work for the poor, and the poor will make you immortal."},
+{name:"Warner Brothers",era:"Est. 1923",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Warner_Bros_logo.svg/400px-Warner_Bros_logo.svg.png",lesson:"Four immigrant brothers who bet everything on talking pictures. Outsiders who changed an industry.",quote:"It is our choices that show what we truly are, far more than our abilities."},
+{name:"Quentin Tarantino",era:"1963–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Quentin_Tarantino_by_Gage_Skidmore.jpg/400px-Quentin_Tarantino_by_Gage_Skidmore.jpg",lesson:"Video store clerk who became a cinematic legend. Deep immersion in film history is his superpower.",quote:"Great artists steal; they don't do homage."},
+{name:"Daniel Craig",era:"1968–present",cats:["cinema"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Daniel_Craig_at_the_Tribeca_Film_Festival.jpg/400px-Daniel_Craig_at_the_Tribeca_Film_Festival.jpg",lesson:"Faced intense public hatred when cast as Bond. Transformation always requires ignoring the crowd.",quote:"I think it's important to know where you came from in order to know where you're going."},
+{name:"Sir Frederick Banting",era:"1891–1941",cats:["science"],img:"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Frederick_Banting_-_restored.jpg/400px-Frederick_Banting_-_restored.jpg",lesson:"Discovered insulin and sold the patent for $1 so every diabetic could afford treatment.",quote:"Insulin is not a cure for diabetes. It is a treatment — but it enables diabetics to live full lives."}
 ];
 
 let activeF='all',srchQ='',lbIdx=0;
